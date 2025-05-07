@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safety Guidelines - WanderNest</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.95) !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .safety-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 0;
+            margin-bottom: 40px;
+        }
+        .safety-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            height: 100%;
+        }
+        .safety-icon {
+            font-size: 2.5rem;
+            color: #0d6efd;
+            margin-bottom: 20px;
+        }
+        .emergency-card {
+            background: #dc3545;
+            color: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        .emergency-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        .checklist-icon {
+            color: #198754;
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+        .warning-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        .warning-icon {
+            color: #dc3545;
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+        .nav-pills .nav-link {
+            color: #495057;
+            border-radius: 20px;
+            padding: 10px 20px;
+            margin-bottom: 10px;
+        }
+        .nav-pills .nav-link.active {
+            background-color: #0d6efd;
+            color: white;
+        }
+        .safety-section {
+            padding: 40px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .safety-section:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-globe-americas me-2"></i>WanderNest
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="hosts.html">Find Hosts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="opportunities.html">Opportunities</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="how-it-works.html">How It Works</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="complaints.html">Complaints</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a href="favorites.html" class="btn btn-outline-primary me-2">
+                        <i class="fas fa-heart me-1"></i>Favorites
+                    </a>
+                    <a href="login.html" class="btn btn-outline-primary me-2">Login</a>
+                    <a href="register.html" class="btn btn-primary">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="safety-hero">
+        <div class="container text-center">
+            <h1 class="display-4 mb-4">Safety Guidelines</h1>
+            <p class="lead">Your safety is our top priority. Learn how to stay safe while traveling and hosting.</p>
+        </div>
+    </div>
+
+    <!-- Emergency Contact Card -->
+    <div class="container mb-5">
+        <div class="emergency-card text-center">
+            <i class="fas fa-exclamation-triangle emergency-icon"></i>
+            <h3>Emergency Contact</h3>
+            <p class="mb-4">If you're in immediate danger or need urgent assistance, contact our 24/7 safety team:</p>
+            <a href="tel:+1234567890" class="btn btn-light btn-lg">+1 (234) 567-890</a>
+        </div>
+    </div>
+
+    <!-- Quick Navigation -->
+    <div class="container mb-5">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="nav flex-column nav-pills" role="tablist">
+                    <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#before-travel">Before Travel</button>
+                    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#during-stay">During Stay</button>
+                    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#host-safety">Host Safety</button>
+                    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#reporting">Reporting Issues</button>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="tab-content">
+                    <!-- Before Travel Section -->
+                    <div class="tab-pane fade show active" id="before-travel">
+                        <div class="safety-card">
+                            <h3 class="mb-4">Before You Travel</h3>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle checklist-icon"></i>
+                                <div>
+                                    <h5>Verify Your Host</h5>
+                                    <p>Always check host profiles, reviews, and verification status before accepting an opportunity.</p>
+                                </div>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle checklist-icon"></i>
+                                <div>
+                                    <h5>Research Your Destination</h5>
+                                    <p>Learn about local customs, laws, and safety concerns in your destination country.</p>
+                                </div>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle checklist-icon"></i>
+                                <div>
+                                    <h5>Share Your Plans</h5>
+                                    <p>Inform friends and family about your travel plans and keep them updated.</p>
+                                </div>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle checklist-icon"></i>
+                                <div>
+                                    <h5>Get Travel Insurance</h5>
+                                    <p>Purchase comprehensive travel insurance that covers medical emergencies and trip cancellation.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- During Stay Section -->
+                    <div class="tab-pane fade" id="during-stay">
+                        <div class="safety-card">
+                            <h3 class="mb-4">During Your Stay</h3>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle checklist-icon"></i>
+                                <div>
+                                    <h5>Stay Connected</h5>
+                                    <p>Keep your phone charged and maintain regular contact with friends and family.</p>
+                                </div>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle checklist-icon"></i>
+                                <div>
+                                    <h5>Trust Your Instincts</h5>
+                                    <p>If something feels wrong, trust your gut and remove yourself from the situation.</p>
+                                </div>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle checklist-icon"></i>
+                                <div>
+                                    <h5>Document Everything</h5>
+                                    <p>Keep records of your work hours, agreements, and any issues that arise.</p>
+                                </div>
+                            </div>
+                            <div class="warning-item">
+                                <i class="fas fa-exclamation-triangle warning-icon"></i>
+                                <div>
+                                    <h5>Red Flags to Watch For</h5>
+                                    <ul>
+                                        <li>Hosts asking for money</li>
+                                        <li>Unsafe living conditions</li>
+                                        <li>Excessive work hours</li>
+                                        <li>Lack of clear communication</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Host Safety Section -->
+                    <div class="tab-pane fade" id="host-safety">
+                        <div class="safety-card">
+                            <h3 class="mb-4">Host Safety Guidelines</h3>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle checklist-icon"></i>
+                                <div>
+                                    <h5>Screen Travelers</h5>
+                                    <p>Review profiles, references, and communicate thoroughly before accepting travelers.</p>
+                                </div>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle checklist-icon"></i>
+                                <div>
+                                    <h5>Set Clear Expectations</h5>
+                                    <p>Clearly communicate work hours, responsibilities, and house rules in advance.</p>
+                                </div>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle checklist-icon"></i>
+                                <div>
+                                    <h5>Provide Safe Accommodation</h5>
+                                    <p>Ensure living spaces are clean, safe, and meet basic standards.</p>
+                                </div>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle checklist-icon"></i>
+                                <div>
+                                    <h5>Respect Boundaries</h5>
+                                    <p>Maintain professional relationships and respect personal space.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reporting Issues Section -->
+                    <div class="tab-pane fade" id="reporting">
+                        <div class="safety-card">
+                            <h3 class="mb-4">Reporting Safety Issues</h3>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle checklist-icon"></i>
+                                <div>
+                                    <h5>Contact Safety Team</h5>
+                                    <p>Report any safety concerns immediately to our 24/7 safety team.</p>
+                                </div>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle checklist-icon"></i>
+                                <div>
+                                    <h5>Document Incidents</h5>
+                                    <p>Keep records, photos, and messages related to any safety issues.</p>
+                                </div>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle checklist-icon"></i>
+                                <div>
+                                    <h5>Local Authorities</h5>
+                                    <p>Contact local police or emergency services if you're in immediate danger.</p>
+                                </div>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle checklist-icon"></i>
+                                <div>
+                                    <h5>Leave Reviews</h5>
+                                    <p>Share your experience (good or bad) to help other community members.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Additional Resources -->
+    <div class="container mb-5">
+        <h2 class="text-center mb-4">Additional Resources</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="safety-card text-center">
+                    <i class="fas fa-book safety-icon"></i>
+                    <h4>Safety Guide</h4>
+                    <p>Download our comprehensive safety guide for travelers and hosts.</p>
+                    <a href="#" class="btn btn-primary">Download Guide</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="safety-card text-center">
+                    <i class="fas fa-shield-alt safety-icon"></i>
+                    <h4>Verification</h4>
+                    <p>Learn about our verification process and how to verify your account.</p>
+                    <a href="#" class="btn btn-primary">Learn More</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="safety-card text-center">
+                    <i class="fas fa-question-circle safety-icon"></i>
+                    <h4>FAQ</h4>
+                    <p>Find answers to common safety-related questions.</p>
+                    <a href="#" class="btn btn-primary">View FAQ</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>WanderNest</h5>
+                    <p>Connecting travelers with hosts worldwide for meaningful cultural exchanges.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="about.html" class="text-white">About Us</a></li>
+                        <li><a href="safety-guidelines.html" class="text-white">Safety Guidelines</a></li>
+                        <li><a href="contact.html" class="text-white">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Follow Us</h5>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-white"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 
