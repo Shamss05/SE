@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WanderNest - Feed</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.95) !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .post-card {
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            background: white;
+        }
+        .post-header {
+            padding: 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .post-content {
+            padding: 15px;
+        }
+        .post-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+        }
+        .post-actions {
+            padding: 10px 15px;
+            border-top: 1px solid #e9ecef;
+        }
+        .post-actions button {
+            background: none;
+            border: none;
+            color: #6c757d;
+            padding: 5px 10px;
+        }
+        .post-actions button:hover {
+            color: #0d6efd;
+        }
+        .create-post {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .post-stats {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        .comment-section {
+            padding: 15px;
+            background: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+        }
+        .comment {
+            padding: 10px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .comment:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-globe-americas me-2"></i>WanderNest
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="hosts.html">Find Hosts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="opportunities.html">Opportunities</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="how-it-works.html">How It Works</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="feed.html">Feed</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a href="favorites.html" class="btn btn-outline-primary me-2">
+                        <i class="fas fa-heart me-1"></i>Favorites
+                    </a>
+                    <a href="login.html" class="btn btn-outline-primary me-2">Login</a>
+                    <a href="register.html" class="btn btn-primary">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-5 pt-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <!-- Create Post -->
+                <div class="create-post">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" class="user-avatar me-3" alt="User">
+                        <div class="flex-grow-1">
+                            <textarea class="form-control" rows="3" placeholder="Share your travel experience..."></textarea>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <button class="btn btn-outline-primary me-2">
+                                <i class="fas fa-image me-1"></i>Add Photo
+                            </button>
+                            <button class="btn btn-outline-primary">
+                                <i class="fas fa-map-marker-alt me-1"></i>Add Location
+                            </button>
+                        </div>
+                        <button class="btn btn-primary">Post</button>
+                    </div>
+                </div>
+
+                <!-- Posts Feed -->
+                <!-- Post 1 -->
+                <div class="post-card">
+                    <div class="post-header d-flex align-items-center">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" class="user-avatar me-3" alt="User">
+                        <div>
+                            <h6 class="mb-0">Sarah Johnson</h6>
+                            <small class="text-muted">2 hours ago</small>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p>Just finished an amazing work exchange in Bali! The organic farm experience was incredible. Here are some photos from my stay! 🌿🌴</p>
+                        <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4" class="post-image mb-3" alt="Bali Farm">
+                        <div class="post-stats">
+                            <span><i class="fas fa-heart text-danger"></i> 245 likes</span>
+                            <span class="ms-3"><i class="fas fa-comment"></i> 23 comments</span>
+                        </div>
+                    </div>
+                    <div class="post-actions">
+                        <button><i class="far fa-heart"></i> Like</button>
+                        <button><i class="far fa-comment"></i> Comment</button>
+                        <button><i class="far fa-share-square"></i> Share</button>
+                    </div>
+                    <div class="comment-section">
+                        <div class="comment">
+                            <div class="d-flex">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" class="user-avatar me-2" alt="User">
+                                <div>
+                                    <h6 class="mb-0">John Smith</h6>
+                                    <p class="mb-0">This looks amazing! How long were you there?</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment">
+                            <div class="d-flex">
+                                <img src="https://randomuser.me/api/portraits/women/68.jpg" class="user-avatar me-2" alt="User">
+                                <div>
+                                    <h6 class="mb-0">Emma Wilson</h6>
+                                    <p class="mb-0">Beautiful photos! I'm planning to go there next month!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Post 2 -->
+                <div class="post-card">
+                    <div class="post-header d-flex align-items-center">
+                        <img src="https://randomuser.me/api/portraits/men/45.jpg" class="user-avatar me-3" alt="User">
+                        <div>
+                            <h6 class="mb-0">Carlos Rodriguez</h6>
+                            <small class="text-muted">5 hours ago</small>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p>Teaching English in Lisbon has been an incredible experience! The students are amazing and the city is beautiful. Here's a view from our language school! 📚✨</p>
+                        <img src="https://images.unsplash.com/photo-1518546305927-5a555bb7020d" class="post-image mb-3" alt="Lisbon">
+                        <div class="post-stats">
+                            <span><i class="fas fa-heart text-danger"></i> 189 likes</span>
+                            <span class="ms-3"><i class="fas fa-comment"></i> 15 comments</span>
+                        </div>
+                    </div>
+                    <div class="post-actions">
+                        <button><i class="far fa-heart"></i> Like</button>
+                        <button><i class="far fa-comment"></i> Comment</button>
+                        <button><i class="far fa-share-square"></i> Share</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Like button functionality
+            document.querySelectorAll('.post-actions button').forEach(button => {
+                button.addEventListener('click', function() {
+                    if (this.querySelector('.fa-heart')) {
+                        const icon = this.querySelector('.fa-heart');
+                        icon.classList.toggle('far');
+                        icon.classList.toggle('fas');
+                        icon.classList.toggle('text-danger');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html> 
