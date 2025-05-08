@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WanderNest - Find a Travel Buddy</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.95) !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 40vh;
+            display: flex;
+            align-items: center;
+            color: white;
+            margin-top: 56px;
+        }
+        .buddy-card {
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            transition: transform 0.2s;
+        }
+        .buddy-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .buddy-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .buddy-stats {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+        .buddy-tags {
+            margin-top: 10px;
+        }
+        .buddy-tag {
+            background: #e9ecef;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin-right: 5px;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+        .add-buddy-card {
+            background: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 30px;
+        }
+        .add-buddy-card:hover {
+            background: #e9ecef;
+            border-color: #adb5bd;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-globe-americas me-2"></i>WanderNest
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="hosts.html">Find Hosts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="opportunities.html">Opportunities</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="how-it-works.html">How It Works</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="travel-buddy.html">Travel Buddy</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a href="favorites.html" class="btn btn-outline-primary me-2">
+                        <i class="fas fa-heart me-1"></i>Favorites
+                    </a>
+                    <a href="login.html" class="btn btn-outline-primary me-2">Login</a>
+                    <a href="register.html" class="btn btn-primary">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container text-center">
+            <h1 class="display-4 mb-4">Find Your Travel Buddy</h1>
+            <p class="lead mb-4">Connect with fellow travelers and share amazing adventures together</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container mt-5">
+        <!-- Add Yourself Card -->
+        <div class="add-buddy-card">
+            <i class="fas fa-plus-circle fa-3x mb-3 text-primary"></i>
+            <h4>Looking for a Travel Buddy?</h4>
+            <p class="text-muted">Add yourself to the list and connect with fellow travelers</p>
+            <button class="btn btn-primary">Add Your Profile</button>
+        </div>
+
+        <!-- Travel Buddy Cards -->
+        <div class="row">
+            <!-- Buddy Card 1 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="buddy-card p-3">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" class="buddy-avatar me-3" alt="Travel Buddy">
+                        <div>
+                            <h5 class="mb-0">Sarah Johnson</h5>
+                            <div class="buddy-stats">
+                                <span><i class="fas fa-map-marker-alt"></i> From: Canada</span>
+                                <span class="ms-3"><i class="fas fa-user"></i> 25 years old</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p>Looking for a travel buddy to explore Southeast Asia for 3 months starting in January. Interested in cultural experiences and adventure activities!</p>
+                    <div class="buddy-tags">
+                        <span class="buddy-tag">Southeast Asia</span>
+                        <span class="buddy-tag">3 months</span>
+                        <span class="buddy-tag">Adventure</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <span class="text-muted">Jan 2024 - Mar 2024</span>
+                        <button class="btn btn-outline-primary">Contact</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Buddy Card 2 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="buddy-card p-3">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" class="buddy-avatar me-3" alt="Travel Buddy">
+                        <div>
+                            <h5 class="mb-0">John Smith</h5>
+                            <div class="buddy-stats">
+                                <span><i class="fas fa-map-marker-alt"></i> From: UK</span>
+                                <span class="ms-3"><i class="fas fa-user"></i> 28 years old</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p>Planning a backpacking trip through Europe this summer. Looking for someone to share the journey and split costs. Love photography and hiking!</p>
+                    <div class="buddy-tags">
+                        <span class="buddy-tag">Europe</span>
+                        <span class="buddy-tag">Summer 2024</span>
+                        <span class="buddy-tag">Photography</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <span class="text-muted">Jun 2024 - Aug 2024</span>
+                        <button class="btn btn-outline-primary">Contact</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Buddy Card 3 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="buddy-card p-3">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" class="buddy-avatar me-3" alt="Travel Buddy">
+                        <div>
+                            <h5 class="mb-0">Emma Wilson</h5>
+                            <div class="buddy-stats">
+                                <span><i class="fas fa-map-marker-alt"></i> From: Australia</span>
+                                <span class="ms-3"><i class="fas fa-user"></i> 24 years old</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p>Seeking a travel companion for a South American adventure. Interested in volunteering and learning Spanish. Flexible dates!</p>
+                    <div class="buddy-tags">
+                        <span class="buddy-tag">South America</span>
+                        <span class="buddy-tag">Flexible</span>
+                        <span class="buddy-tag">Volunteering</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <span class="text-muted">Flexible Dates</span>
+                        <button class="btn btn-outline-primary">Contact</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <nav class="mt-4">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                </li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

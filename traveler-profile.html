@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Host Profile - WanderNest</title>
+    <title>My Profile - WanderNest</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -46,23 +46,6 @@
         .nav-pills .nav-link.active {
             background-color: #0d6efd;
         }
-        .calendar-day {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-        .calendar-day.available {
-            background-color: #198754;
-            color: white;
-        }
-        .calendar-day.unavailable {
-            background-color: #dc3545;
-            color: white;
-        }
     </style>
 </head>
 <body class="bg-light">
@@ -85,11 +68,11 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown">
-                            <img src="https://randomuser.me/api/portraits/women/32.jpg" class="rounded-circle" width="30" height="30">
-                            Maria Garcia
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" class="rounded-circle" width="30" height="30">
+                            John Doe
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="host-profile.html">My Profile</a></li>
+                            <li><a class="dropdown-item" href="traveler-profile.html">My Profile</a></li>
                             <li><a class="dropdown-item" href="settings.html">Settings</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="login.html">Logout</a></li>
@@ -105,7 +88,7 @@
         <button class="btn btn-light edit-btn">
             <i class="fas fa-camera me-2"></i>Change Cover
         </button>
-        <img src="https://randomuser.me/api/portraits/women/32.jpg" class="profile-avatar rounded-circle">
+        <img src="https://randomuser.me/api/portraits/men/32.jpg" class="profile-avatar rounded-circle">
     </div>
 
     <!-- Profile Content -->
@@ -115,32 +98,32 @@
             <div class="col-md-4">
                 <div class="section-card">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h4 class="mb-0">Maria Garcia</h4>
+                        <h4 class="mb-0">John Doe</h4>
                         <button class="btn btn-outline-primary btn-sm">
                             <i class="fas fa-edit me-2"></i>Edit
                         </button>
                     </div>
                     <p class="text-muted mb-3">
-                        <i class="fas fa-map-marker-alt me-2"></i>Barcelona, Spain
+                        <i class="fas fa-map-marker-alt me-2"></i>New York, USA
                     </p>
                     <div class="profile-stats mb-3">
                         <div class="row text-center">
                             <div class="col">
-                                <h5>24</h5>
-                                <small class="text-muted">Volunteers</small>
+                                <h5>12</h5>
+                                <small class="text-muted">Trips</small>
                             </div>
                             <div class="col">
-                                <h5>18</h5>
+                                <h5>8</h5>
                                 <small class="text-muted">Reviews</small>
                             </div>
                             <div class="col">
-                                <h5>4.9</h5>
+                                <h5>4.8</h5>
                                 <small class="text-muted">Rating</small>
                             </div>
                         </div>
                     </div>
                     <button class="btn btn-primary w-100 mb-3">
-                        <i class="fas fa-plus me-2"></i>Add New Listing
+                        <i class="fas fa-plus me-2"></i>Add New Trip
                     </button>
                 </div>
 
@@ -148,13 +131,13 @@
                     <h5 class="mb-3">Quick Links</h5>
                     <div class="list-group">
                         <a href="#" class="list-group-item list-group-item-action">
-                            <i class="fas fa-calendar me-2"></i>Availability Calendar
+                            <i class="fas fa-heart me-2"></i>Saved Hosts
                         </a>
                         <a href="#" class="list-group-item list-group-item-action">
-                            <i class="fas fa-users me-2"></i>Current Volunteers
+                            <i class="fas fa-calendar me-2"></i>Upcoming Trips
                         </a>
                         <a href="#" class="list-group-item list-group-item-action">
-                            <i class="fas fa-star me-2"></i>Reviews
+                            <i class="fas fa-star me-2"></i>My Reviews
                         </a>
                         <a href="#" class="list-group-item list-group-item-action">
                             <i class="fas fa-cog me-2"></i>Account Settings
@@ -169,17 +152,12 @@
                     <ul class="nav nav-pills mb-4" id="profileTabs" role="tablist">
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#about">
-                                About Us
+                                About Me
                             </button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#listings">
-                                My Listings
-                            </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#calendar">
-                                Calendar
+                            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#trips">
+                                My Trips
                             </button>
                         </li>
                         <li class="nav-item" role="presentation">
@@ -187,94 +165,76 @@
                                 Reviews
                             </button>
                         </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#photos">
+                                Photos
+                            </button>
+                        </li>
                     </ul>
 
                     <div class="tab-content">
-                        <!-- About Us Tab -->
+                        <!-- About Me Tab -->
                         <div class="tab-pane fade show active" id="about">
                             <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h5>About Us</h5>
+                                <h5>About Me</h5>
                                 <button class="btn btn-outline-primary btn-sm">
                                     <i class="fas fa-edit me-2"></i>Edit
                                 </button>
                             </div>
-                            <p>Welcome to our organic farm and homestay in Barcelona! We're a family of four passionate about sustainable living and cultural exchange.</p>
+                            <p>Passionate traveler with experience in teaching English and organic farming. Love cultural exchange and meeting new people.</p>
                             
-                            <h6 class="mt-4 mb-3">Help Needed</h6>
+                            <h6 class="mt-4 mb-3">Skills & Interests</h6>
                             <div class="d-flex flex-wrap gap-2 mb-4">
-                                <span class="badge bg-primary">Gardening</span>
                                 <span class="badge bg-primary">Teaching</span>
+                                <span class="badge bg-primary">Farming</span>
                                 <span class="badge bg-primary">Cooking</span>
-                                <span class="badge bg-primary">Childcare</span>
+                                <span class="badge bg-primary">Languages</span>
                             </div>
 
-                            <h6 class="mt-4 mb-3">Accommodation</h6>
-                            <p>Private room with shared bathroom. Three meals per day included. Free WiFi and laundry facilities available.</p>
+                            <h6 class="mt-4 mb-3">Languages</h6>
+                            <div class="d-flex flex-wrap gap-2">
+                                <span class="badge bg-success">English (Native)</span>
+                                <span class="badge bg-success">Spanish (Intermediate)</span>
+                                <span class="badge bg-success">French (Basic)</span>
+                            </div>
                         </div>
 
-                        <!-- My Listings Tab -->
-                        <div class="tab-pane fade" id="listings">
+                        <!-- My Trips Tab -->
+                        <div class="tab-pane fade" id="trips">
                             <div class="d-flex justify-content-between align-items-center mb-4">
-                                <h5>My Listings</h5>
+                                <h5>My Trips</h5>
                                 <button class="btn btn-primary btn-sm">
-                                    <i class="fas fa-plus me-2"></i>Add Listing
+                                    <i class="fas fa-plus me-2"></i>Add Trip
                                 </button>
                             </div>
                             <div class="card mb-3">
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between">
                                         <div>
-                                            <h6 class="mb-1">Organic Farm & Homestay</h6>
-                                            <p class="text-muted mb-2">Barcelona, Spain</p>
-                                            <span class="badge bg-success">Active</span>
+                                            <h6 class="mb-1">Organic Farm Stay - Bali</h6>
+                                            <p class="text-muted mb-2">March 2024 - April 2024</p>
+                                            <span class="badge bg-success">Confirmed</span>
                                         </div>
-                                        <div>
-                                            <button class="btn btn-outline-primary btn-sm me-2">Edit</button>
-                                            <button class="btn btn-outline-danger btn-sm">Deactivate</button>
-                                        </div>
+                                        <button class="btn btn-outline-primary btn-sm">View Details</button>
                                     </div>
                                 </div>
                             </div>
-                            <!-- Add more listing cards here -->
-                        </div>
-
-                        <!-- Calendar Tab -->
-                        <div class="tab-pane fade" id="calendar">
-                            <div class="d-flex justify-content-between align-items-center mb-4">
-                                <h5>Availability Calendar</h5>
-                                <div>
-                                    <button class="btn btn-outline-primary btn-sm me-2">
-                                        <i class="fas fa-plus me-2"></i>Add Dates
-                                    </button>
-                                    <button class="btn btn-outline-secondary btn-sm">
-                                        <i class="fas fa-download me-2"></i>Export
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="calendar-container">
-                                <!-- Calendar will be dynamically generated -->
-                                <div class="d-flex flex-wrap gap-2">
-                                    <div class="calendar-day available">1</div>
-                                    <div class="calendar-day available">2</div>
-                                    <div class="calendar-day unavailable">3</div>
-                                    <!-- Add more calendar days -->
-                                </div>
-                            </div>
+                            <!-- Add more trip cards here -->
                         </div>
 
                         <!-- Reviews Tab -->
                         <div class="tab-pane fade" id="reviews">
-                            <h5 class="mb-4">Reviews from Volunteers</h5>
+                            <h5 class="mb-4">Reviews from Hosts</h5>
                             <div class="card mb-3">
                                 <div class="card-body">
                                     <div class="d-flex align-items-center mb-3">
-                                        <img src="https://randomuser.me/api/portraits/men/45.jpg" class="rounded-circle me-3" width="50">
+                                        <img src="https://randomuser.me/api/portraits/women/45.jpg" class="rounded-circle me-3" width="50">
                                         <div>
-                                            <h6 class="mb-0">John Smith</h6>
-                                            <small class="text-muted">Volunteer from USA</small>
+                                            <h6 class="mb-0">Maria Garcia</h6>
+                                            <small class="text-muted">Host in Spain</small>
                                         </div>
                                     </div>
-                                    <p class="mb-2">Amazing experience! The family was very welcoming and I learned a lot about organic farming.</p>
+                                    <p class="mb-2">John was an excellent volunteer. Very helpful and respectful.</p>
                                     <div class="text-warning">
                                         <i class="fas fa-star"></i>
                                         <i class="fas fa-star"></i>
@@ -285,6 +245,22 @@
                                 </div>
                             </div>
                             <!-- Add more review cards here -->
+                        </div>
+
+                        <!-- Photos Tab -->
+                        <div class="tab-pane fade" id="photos">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h5>My Photos</h5>
+                                <button class="btn btn-primary btn-sm">
+                                    <i class="fas fa-upload me-2"></i>Upload Photos
+                                </button>
+                            </div>
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" class="img-fluid rounded" alt="Travel Photo">
+                                </div>
+                                <!-- Add more photo columns here -->
+                            </div>
                         </div>
                     </div>
                 </div>
