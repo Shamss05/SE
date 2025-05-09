@@ -1,3 +1,77 @@
+<?php
+require_once '../../Controllers/Authcontroller.php';
+require_once '../../Controllers/countrycontroller.php';
+require_once '../../Controllers/taskscontroller.php';
+
+require_once '../../Models/user.php';
+require_once '../../Models/host_listings.php';
+
+
+$auth=new Authcontroller;
+$countries_data=new Countrycontroller;
+$countries=$countries_data->fetch_counties();
+
+$tasks_data=new taskscontroller;
+$tasks=$tasks_data->fetch_tasks();
+
+
+
+if(isset($_POST['traveler_submit'])){
+$name=$_POST['name'];
+$email=$_POST['email'];
+$hasedpassword=password_hash($_POST['password'],PASSWORD_DEFAULT);
+$country=$_POST['country'];
+$skills=$_POST['skills'];
+
+$user=new User;
+$user->name=$name;
+$user->email=$email;
+$user->password=$hasedpassword;
+$user->Country=$country;
+$user->role=2;
+$user->image="...";
+$user->preferences="Default";
+$user->skills=$skills;
+
+$auth->register($user);
+}
+
+
+if(isset($_POST['host_submit'])){
+  $name=$_POST['name'];
+  $email=$_POST['email'];
+  $hasedpassword=password_hash($_POST['password'],PASSWORD_DEFAULT);
+  $location=$_POST['location'];
+  $country=$_POST['country'];
+  $city=$_POST['city'];
+  $skills=$_POST['skills'];
+  $accomodation=$_POST['accomodation'];
+  $description=$_POST['description'];
+
+  $user=new User;
+  $user->name=$name;
+  $user->email=$email;
+  $user->password=$hasedpassword;
+  $user->Country=$country;
+  $user->role=1;
+  $user->image="...";
+  $user->preferences="Default";
+  $user->skills=$skills;
+  
+  $auth->register($user);
+  
+  $listing=new host_listings;
+  $listing->accommodation_details=$accomodation;
+  $listing->city=$city;
+  $listing->country=$country;
+  $listing->description=$description;
+  $listing->location=$location;
+  }
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,22 +144,22 @@
                     <div class="tab-content" id="roleTabContent">
                         <!-- Traveler Registration Form -->
                         <div class="tab-pane fade show active" id="travelerForm">
-                            <form id="travelerRegistration">
+                            <form method="post" id="travelerRegistration">
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label">Full Name</label>
-                                        <input type="text" class="form-control" required>
+                                        <input name="name" type="text" class="form-control" required>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label">Email</label>
-                                        <input type="email" class="form-control" required>
+                                        <input name="email" type="email" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                             <label for="password" class="form-label">Password</label>
                                             <div class="input-group">
-                                                <input type="password" class="form-control" id="password2" required>
+                                                <input name="password" type="password" class="form-control" id="password2" required>
                                                 <button class="btn btn-outline-secondary" type="button" id="togglePassword2">
                                                     <i class="far fa-eye"></i>
                                                 </button>
@@ -93,28 +167,25 @@
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label">Country</label>
-                                        <select class="form-select" required>
-                                            <option value="">Select your country</option>
-                                            <option value="US">United States</option>
-                                            <option value="UK">United Kingdom</option>
-                                            <option value="CA">Canada</option>
+                                        <select name="country" class="form-select" required>
+                                        <option value="">Select your country</option>
+                                          <?php foreach($countries as $country):?>
+                                            <option value="<?=$country['id']?>"><?=$country['name']?></option>
+                                            <?php endforeach;?>
                                             <!-- Add more countries -->
                                         </select>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Skills & Interests</label>
-                                    <select class="form-select" multiple required>
-                                        <option value="gardening">Gardening</option>
-                                        <option value="teaching">Teaching</option>
-                                        <option value="cooking">Cooking</option>
-                                        <option value="childcare">Childcare</option>
-                                        <option value="farming">Farming</option>
-                                        <option value="languages">Languages</option>
+                                    <select name="skills" class="form-select" multiple required>
+                                      <?php foreach($tasks as $task):?>
+                                        <option value="<?=$task['name']?>"><?=$task['name']?></option>
+                                        <?php endforeach;?>
                                     </select>
                                     <small class="text-muted">Hold Ctrl/Cmd to select multiple</small>
                                 </div>
-                                <button type="submit" class="btn btn-primary w-100">Create Traveler Account</button>
+                                <button name="traveler_submit" type="submit" class="btn btn-primary w-100">Create Traveler Account</button>
                             </form>
                         </div>
 
@@ -133,23 +204,23 @@
                                 <span class="step-indicator">Photos</span>
                             </div>
 
-                            <form id="hostRegistration">
+                            <form method="post" id="hostRegistration">
                                 <!-- Step 1: Account Information -->
                                 <div class="form-step active" id="step1">
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">Full Name</label>
-                                            <input type="text" class="form-control" required>
+                                            <input name="name" type="text" class="form-control" required>
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">Email</label>
-                                            <input type="email" class="form-control" required>
+                                            <input name="email" type="email" class="form-control" required>
                                         </div>
                                     </div>
                                     <div class="mb-3">
                                         <label for="password" class="form-label">Password</label>
                                         <div class="input-group mb-3">
-                                            <input type="password" class="form-control" id="password" required>
+                                            <input name="password" type="password" class="form-control" id="password" required>
                                             <button class="btn btn-outline-secondary" type="button" id="togglePassword">
                                                 <i class="far fa-eye"></i>
                                             </button>
@@ -161,20 +232,20 @@
                                 <div class="form-step" id="step2">
                                     <div class="mb-3">
                                         <label class="form-label">Property Location</label>
-                                        <input type="text" class="form-control" placeholder="Address" required>
+                                        <input name="location" type="text" class="form-control" placeholder="Address" required>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">City</label>
-                                            <input type="text" class="form-control" required>
+                                            <input name="city" type="text" class="form-control" required>
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">Country</label>
-                                            <select class="form-select" required>
+                                            <select name="country" class="form-select" required>
                                                 <option value="">Select country</option>
-                                                <option value="US">United States</option>
-                                                <option value="UK">United Kingdom</option>
-                                                <option value="CA">Canada</option>
+                                                <?php foreach($countries as $country):?>
+                                                <option value="<?=$country['id']?>"><?=$country['name']?></option>
+                                                <?php endforeach;?>
                                             </select>
                                         </div>
                                     </div>
@@ -189,20 +260,18 @@
                                     <div class="mb-3">
                                         <label class="form-label">Type of Help Needed</label>
                                         <select class="form-select" multiple required>
-                                            <option value="gardening">Gardening</option>
-                                            <option value="childcare">Childcare</option>
-                                            <option value="farming">Farming</option>
-                                            <option value="teaching">Teaching</option>
-                                            <option value="cooking">Cooking</option>
+                                        <?php foreach($tasks as $task):?>
+                                        <option value="<?=$task['name']?>"><?=$task['name']?></option>
+                                        <?php endforeach;?>
                                         </select>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Description</label>
-                                        <textarea class="form-control" rows="4" placeholder="Describe your place and the cultural experience you offer" required></textarea>
+                                        <textarea name="description" class="form-control" rows="4" placeholder="Describe your place and the cultural experience you offer" required></textarea>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Accommodation Details</label>
-                                        <textarea class="form-control" rows="3" placeholder="Describe the accommodation you provide" required></textarea>
+                                        <textarea name="accomodation" class="form-control" rows="3" placeholder="Describe the accommodation you provide" required></textarea>
                                     </div>
                                     <div class="d-flex justify-content-between">
                                         <button type="button" class="btn btn-secondary" onclick="prevStep(2)">Previous</button>
@@ -220,7 +289,7 @@
                                     <div id="photoPreview" class="mb-3"></div>
                                     <div class="d-flex justify-content-between">
                                         <button type="button" class="btn btn-secondary" onclick="prevStep(3)">Previous</button>
-                                        <button type="submit" class="btn btn-primary">Submit for Review</button>
+                                        <button type="host_submit" class="btn btn-primary">Submit for Review</button>
                                     </div>
                                 </div>
                             </form>
@@ -307,19 +376,8 @@
         }
 
         // Form submission handler
-        document.getElementById('hostRegistration').addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Here you would typically send the data to your server
-            alert('Your registration has been submitted for review. We will notify you once approved.');
-            window.location.href = 'login.html';
-        });
 
-        document.getElementById('travelerRegistration').addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Here you would typically send the data to your server
-            alert('Registration successful! You can now log in.');
-            window.location.href = 'login.html';
-        });
+
 
                 // Password visibility toggle
                 document.getElementById('togglePassword').addEventListener('click', function() {

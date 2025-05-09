@@ -1,3 +1,25 @@
+<?php
+require_once '../../Models/user.php';
+require_once '../../Controllers/Authcontroller.php';
+if(isset($_POST['submit'])){
+$email=$_POST['email'];
+$pass=$_POST['password'];
+
+if(!empty($email)&&!empty($pass)){
+$user=new User;
+$user->email=$email;
+$user->password=$pass;
+$auth=new Authcontroller;
+$auth->login($user);
+}
+}
+
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,21 +88,21 @@
                     </div>
                     
                     <!-- Login Form -->
-                    <form id="loginForm">
+                    <form method="post" id="loginForm">
                         <div class="mb-3">
                             <label for="email" class="form-label">Email address</label>
-                            <input type="email" class="form-control" id="email" required>
+                            <input name="email" type="email" class="form-control" id="email" required>
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
                             <div class="input-group">
-                                <input type="password" class="form-control" id="password" required>
+                                <input name="password" type="password" class="form-control" id="password" required>
                                 <button class="btn btn-outline-secondary" type="button" id="togglePassword">
                                     <i class="far fa-eye"></i>
                                 </button>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary w-100 mb-3">Log In</button>
+                        <button name="submit" type="submit" class="btn btn-primary w-100 mb-3">Log In</button>
                     </form>
 
                     <div class="text-center">
