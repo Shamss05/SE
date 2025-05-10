@@ -3,26 +3,27 @@ require_once '../../Models/user.php';
 require_once '../../Controllers/DBcontroller.php';
 class Authcontroller{
 protected $db;
-
 public function login(User $user){
 $this->db=new DBcontroller;
   if($this->db->openconnection()){
 
     $query="SELECT * FROM `users` WHERE email='$user->email'";
     $result=$this->db->search($query);
+    if(empty($result)){
+      echo "wrong email or password";
+      return false;
+  }else{
     if(password_verify($user->password,$result['password'])){
-      if(empty($result)){
-        echo "wrong email or password";
-        return false;
-    }else{
-        session_start();
-        $_SESSION['id']=$result['id'];
-        $_SESSION['name']=$result['name'];
-        $_SESSION['role']=$result['role'];
-        header("location: ../index.html");
-        return true;
-    }
-    }
+      session_start();
+      $_SESSION['id']=$result['id'];
+      $_SESSION['name']=$result['name'];
+      $_SESSION['role']=$result['role'];
+      header("location: ../index.html");
+      return true;
+
+  }
+  }
+
     
 
   }
@@ -50,7 +51,6 @@ public function register(User $user){
               echo "Registration failed";
               return false;
             }else{
-               header("Location:../auth/login.php");
                return true;
             }
 }

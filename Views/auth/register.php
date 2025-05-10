@@ -2,11 +2,13 @@
 require_once '../../Controllers/Authcontroller.php';
 require_once '../../Controllers/countrycontroller.php';
 require_once '../../Controllers/taskscontroller.php';
+require_once '../../Controllers/host_listingscontroller.php';
+
 
 require_once '../../Models/user.php';
 require_once '../../Models/host_listings.php';
 
-
+$host_listing=new host_listingscontroller;
 $auth=new Authcontroller;
 $countries_data=new Countrycontroller;
 $countries=$countries_data->fetch_counties();
@@ -33,7 +35,13 @@ $user->image="...";
 $user->preferences="Default";
 $user->skills=$skills;
 
-$auth->register($user);
+$result = $auth->register($user);
+if($result) {
+    header("Location: ../auth/login.php");
+    exit();
+} else {
+    echo "<script>alert('Registration failed. Please try again.');</script>";
+}
 }
 
 
@@ -47,6 +55,8 @@ if(isset($_POST['host_submit'])){
   $skills=$_POST['skills'];
   $accomodation=$_POST['accomodation'];
   $description=$_POST['description'];
+  $title=$_POST['title'];
+  $language=$_POST['language'];
 
   $user=new User;
   $user->name=$name;
@@ -58,15 +68,21 @@ if(isset($_POST['host_submit'])){
   $user->preferences="Default";
   $user->skills=$skills;
   
-  $auth->register($user);
+  $result = $auth->register($user);
   
-  $listing=new host_listings;
-  $listing->accommodation_details=$accomodation;
-  $listing->city=$city;
-  $listing->country=$country;
-  $listing->description=$description;
-  $listing->location=$location;
-  }
+  if($result) {
+    $listing=new host_listings;
+    $listing->accommodation_details=$accomodation;
+    $listing->city=$city;
+    $listing->country=$country;
+    $listing->description=$description;
+    $listing->location=$location;
+    $listing->title=$title;
+    $listing->language_required=$language;
+    $result=$host_listing->getLastId();
+    $host_listing->savelisting($listing);
+  } 
+}
 
 ?>
 
@@ -189,8 +205,8 @@ if(isset($_POST['host_submit'])){
                             </form>
                         </div>
 
-                        <!-- Host Registration Form -->
-                        <div class="tab-pane fade" id="hostForm">
+         <!-- Host Registration Form -->
+         <div class="tab-pane fade" id="hostForm">
                             <!-- Progress Bar -->
                             <div class="progress mb-4">
                                 <div class="progress-bar" role="progressbar" style="width: 25%"></div>
@@ -218,13 +234,14 @@ if(isset($_POST['host_submit'])){
                                         </div>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="password" class="form-label">Password</label>
-                                        <div class="input-group mb-3">
+                                        <label class="form-label">Password</label>
+                                        <div class="input-group">
                                             <input name="password" type="password" class="form-control" id="password" required>
                                             <button class="btn btn-outline-secondary" type="button" id="togglePassword">
                                                 <i class="far fa-eye"></i>
                                             </button>
                                         </div>
+                                    </div>
                                     <button type="button" class="btn btn-primary w-100" onclick="nextStep(2)">Next</button>
                                 </div>
 
@@ -259,16 +276,25 @@ if(isset($_POST['host_submit'])){
                                 <div class="form-step" id="step3">
                                     <div class="mb-3">
                                         <label class="form-label">Type of Help Needed</label>
-                                        <select class="form-select" multiple required>
+                                        <select name="skills" class="form-select" multiple required>
                                         <?php foreach($tasks as $task):?>
                                         <option value="<?=$task['name']?>"><?=$task['name']?></option>
                                         <?php endforeach;?>
                                         </select>
                                     </div>
+                                      <div class="mb-3">
+                                        <label class="form-label">Title</label>
+                                        <textarea name="title" class="form-control" rows="4" placeholder="Enter your place title" required></textarea>
+                                    </div>
+                                      <div class="mb-3">
+                                        <label class="form-label">Language</label>
+                                        <textarea name="language" class="form-control" rows="4" placeholder="Enter the language required" required></textarea>
+                                    </div>
                                     <div class="mb-3">
                                         <label class="form-label">Description</label>
                                         <textarea name="description" class="form-control" rows="4" placeholder="Describe your place and the cultural experience you offer" required></textarea>
                                     </div>
+
                                     <div class="mb-3">
                                         <label class="form-label">Accommodation Details</label>
                                         <textarea name="accomodation" class="form-control" rows="3" placeholder="Describe the accommodation you provide" required></textarea>
@@ -283,18 +309,20 @@ if(isset($_POST['host_submit'])){
                                 <div class="form-step" id="step4">
                                     <div class="mb-3">
                                         <label class="form-label">Upload Photos</label>
-                                        <input type="file" class="form-control" multiple accept="image/*" onchange="previewPhotos(event)" required>
+                                        <input name="photos" type="file" class="form-control" multiple accept="image/*" onchange="previewPhotos(event)" required>
                                         <small class="text-muted">Upload at least 3 photos of your property</small>
                                     </div>
                                     <div id="photoPreview" class="mb-3"></div>
                                     <div class="d-flex justify-content-between">
                                         <button type="button" class="btn btn-secondary" onclick="prevStep(3)">Previous</button>
-                                        <button type="host_submit" class="btn btn-primary">Submit for Review</button>
+                                        <button name="host_submit" type="submit" class="btn btn-primary">Submit for Review</button>
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </div>
+
+
 
                     <div class="text-center mt-4">
                         <p>Already have an account? <a href="login.html" class="text-decoration-none">Log In</a></p>
@@ -316,6 +344,8 @@ if(isset($_POST['host_submit'])){
         function nextStep(step) {
             // Get the current step's form fields
             const currentStep = document.getElementById('step' + (step - 1));
+            if (!currentStep) return; // Guard against invalid step
+
             const requiredFields = currentStep.querySelectorAll('[required]');
             let isValid = true;
 
@@ -375,12 +405,8 @@ if(isset($_POST['host_submit'])){
             }
         }
 
-        // Form submission handler
-
-
-
-                // Password visibility toggle
-                document.getElementById('togglePassword').addEventListener('click', function() {
+        // Password visibility toggle
+        document.getElementById('togglePassword').addEventListener('click', function() {
             const password = document.getElementById('password');
             const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
             password.setAttribute('type', type);
@@ -388,8 +414,8 @@ if(isset($_POST['host_submit'])){
             this.querySelector('i').classList.toggle('fa-eye-slash');
         });
         
-                // Password visibility toggle
-                document.getElementById('togglePassword2').addEventListener('click', function() {
+        // Password visibility toggle
+        document.getElementById('togglePassword2').addEventListener('click', function() {
             const password = document.getElementById('password2');
             const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
             password.setAttribute('type', type);
@@ -398,4 +424,4 @@ if(isset($_POST['host_submit'])){
         });
     </script>
 </body>
-</html> 
+</html>
