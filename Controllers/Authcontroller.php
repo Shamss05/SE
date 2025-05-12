@@ -10,15 +10,30 @@ $this->db=new DBcontroller;
     $query="SELECT * FROM `users` WHERE email='$user->email'";
     $result=$this->db->search($query);
     if(empty($result)){
-      echo "wrong email or password";
+      $this->db->error_messages[]="Wrong email or password";
       return false;
   }else{
     if(password_verify($user->password,$result['password'])){
       session_start();
-      $_SESSION['id']=$result['id'];
-      $_SESSION['name']=$result['name'];
-      $_SESSION['role']=$result['role'];
+      $_SESSION['user']['id']=$result['id'];
+      $_SESSION['user']['name']=$result['name'];
+      $_SESSION['user']['role']=$result['role'];
+      $_SESSION['user']['error']=$this->db->error_messages;
+      $_SESSION['user']['success']=$this->db->success_messages;
+      if($_SESSION['user']['role']==2){
       header("location: ../index.html");
+      }else{
+        $host_id=$_SESSION['host']['id']=$result['id'];
+        $_SESSION['host']['name']=$result['name'];
+        $_SESSION['host']['role']=$result['role'];
+        $query2="SELECT * FROM `host_listings` WHERE `host_id`=$host_id";
+        $result2=$this->db->search($query);
+        if($result2){
+          header("location: ../index.html");
+        }else{
+                header("location: ../auth/host_details.php");
+        }
+      }
       return true;
 
   }
@@ -41,9 +56,20 @@ public function register(User $user){
             echo "Email already exists";
             return false;
         }else{
+          if($user->skills=="No skills for host"){
+                $allskills=$user->skills;
+          }else{
+            $allskills="";
+            $i=0;
+          foreach($user->skills as $skill){
+            $i++;
+            $allskills=$allskills.$i.$skill;
+          }
+          }
+
           $query = "INSERT INTO `users` (name, email, password, Country, image, role, skills, preferences) 
           VALUES ('$user->name', '$user->email', '$user->password', '$user->Country', 
-                  '$user->image', '$user->role', '$user->skills', '$user->preferences')";
+                  '$user->image', '$user->role', '$allskills', '$user->preferences')";
   
           $result = $this->db->insert($query);
  

@@ -1,3 +1,44 @@
+<?php
+require_once '../../Controllers/taskscontroller.php';
+require_once '../../Controllers/countrycontroller.php';
+require_once '../../Controllers/host_listingscontroller.php';
+
+
+require_once '../../Models/host_listings.php';
+$host_listing=new host_listingscontroller;
+$countries_data=new Countrycontroller;
+$countries=$countries_data->fetch_counties();
+
+$tasks_data=new taskscontroller;
+$tasks=$tasks_data->fetch_tasks();
+
+if(isset($_POST['host_submit'])){
+
+  $location=$_POST['location'];
+  $country=$_POST['country'];
+  $city=$_POST['city'];
+  $accomodation=$_POST['accomodation'];
+  $description=$_POST['description'];
+  $title=$_POST['title'];
+  $language=$_POST['language'];
+
+
+    $listing=new host_listings;
+    $listing->accommodation_details=$accomodation;
+    $listing->city=$city;
+    $listing->country=$country;
+    $listing->description=$description;
+    $listing->location=$location;
+    $listing->title=$title;
+    $listing->language_required=$language;
+    $result=  $host_listing->savelisting($listing);
+
+}
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -79,23 +120,38 @@
                     <form method="post" id="hostDetailsForm">
                         <!-- Step 1: Details -->
                         <div class="form-step active" id="step1">
-                            <div class="mb-3">
-                                <label class="form-label">Type of Help Needed</label>
-                                <select name="skills" class="form-select" multiple required>
-                                    <option value="Gardening">Gardening</option>
-                                    <option value="Teaching">Teaching</option>
-                                    <option value="Construction">Construction</option>
-                                    <option value="Childcare">Childcare</option>
-                                    <option value="Cooking">Cooking</option>
-                                </select>
-                            </div>
+                          <div class="mb-3">
+                                        <label class="form-label">Type of Help Needed</label>
+                                        <select name="skills[]" class="form-select" multiple required>
+                                        <?php foreach($tasks as $task):?>
+                                        <option value="<?=$task['name']?>"><?=$task['name']?></option>
+                                        <?php endforeach;?>
+                                        </select>
+                                    </div>
                             <div class="mb-3">
                                 <label class="form-label">Title</label>
                                 <textarea name="title" class="form-control" rows="4" placeholder="Enter your place title" required></textarea>
                             </div>
+                              <div class="col-md-6 mb-3">
+                                        <label class="form-label">Country</label>
+                                        <select name="country" class="form-select" required>
+                                        <option value="">Select your country</option>
+                                            <?php foreach($countries as $country):?>
+                                            <option value="<?=$country['id']?>"><?=$country['name']?></option>
+                                            <?php endforeach;?>
+                                        </select>
+                              </div>
                             <div class="mb-3">
                                 <label class="form-label">Language</label>
                                 <textarea name="language" class="form-control" rows="4" placeholder="Enter the language required" required></textarea>
+                            </div>
+                              <div class="mb-3">
+                                <label class="form-label">Location</label>
+                                <textarea name="location" class="form-control" rows="4" placeholder="Enter the language required" required></textarea>
+                            </div>
+                              <div class="mb-3">
+                                <label class="form-label">city</label>
+                                <textarea name="city" class="form-control" rows="4" placeholder="Enter the language required" required></textarea>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Description</label>

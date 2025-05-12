@@ -1,7 +1,8 @@
 <?php
 
 class DBcontroller{
-
+  public $error_messages=[];
+  public $success_messages=[];
   public $host="localhost";
   public $username="root";
   public $pass="";

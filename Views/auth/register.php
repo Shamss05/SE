@@ -25,6 +25,7 @@ $hasedpassword=password_hash($_POST['password'],PASSWORD_DEFAULT);
 $country=$_POST['country'];
 $skills=$_POST['skills'];
 
+
 $user=new User;
 $user->name=$name;
 $user->email=$email;
@@ -49,14 +50,8 @@ if(isset($_POST['host_submit'])){
   $name=$_POST['name'];
   $email=$_POST['email'];
   $hasedpassword=password_hash($_POST['password'],PASSWORD_DEFAULT);
-  $location=$_POST['location'];
   $country=$_POST['country'];
-  $city=$_POST['city'];
   $skills=$_POST['skills'];
-  $accomodation=$_POST['accomodation'];
-  $description=$_POST['description'];
-  $title=$_POST['title'];
-  $language=$_POST['language'];
 
   $user=new User;
   $user->name=$name;
@@ -66,22 +61,13 @@ if(isset($_POST['host_submit'])){
   $user->role=1;
   $user->image="...";
   $user->preferences="Default";
-  $user->skills=$skills;
+  $user->skills="No skills for host";
   
   $result = $auth->register($user);
-  
-  if($result) {
-    $listing=new host_listings;
-    $listing->accommodation_details=$accomodation;
-    $listing->city=$city;
-    $listing->country=$country;
-    $listing->description=$description;
-    $listing->location=$location;
-    $listing->title=$title;
-    $listing->language_required=$language;
-    $result=$host_listing->getLastId();
-    $host_listing->savelisting($listing);
-  } 
+if($result){
+
+    header("Location: ../auth/login.php");
+}
 }
 
 ?>
@@ -193,7 +179,7 @@ if(isset($_POST['host_submit'])){
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Skills & Interests</label>
-                                    <select name="skills" class="form-select" multiple required>
+                                    <select name="skills[]" class="form-select" multiple required>
                                       <?php foreach($tasks as $task):?>
                                         <option value="<?=$task['name']?>"><?=$task['name']?></option>
                                         <?php endforeach;?>
@@ -204,58 +190,34 @@ if(isset($_POST['host_submit'])){
                             </form>
                         </div>
 
-         <!-- Host Registration Form -->
-         <div class="tab-pane fade" id="hostForm">
-                            <!-- Progress Bar -->
-                            <div class="progress mb-4">
-                                <div class="progress-bar" role="progressbar" style="width: 25%"></div>
-                            </div>
-
-                            <!-- Step indicators -->
-                            <div class="d-flex justify-content-between mb-4">
-                                <span class="step-indicator active">Account</span>
-                                <span class="step-indicator">Location</span>
-                                <span class="step-indicator">Details</span>
-                                <span class="step-indicator">Photos</span>
-                            </div>
-
+           <!-- Host Registration Form -->
+                        <div class="tab-pane fade" id="hostForm">
                             <form method="post" id="hostRegistration">
-                                <!-- Step 1: Account Information -->
-                                <div class="form-step active" id="step1">
-                                    <div class="row">
-                                        <div class="col-md-6 mb-3">
-                                            <label class="form-label">Full Name</label>
-                                            <input name="name" type="text" class="form-control" required>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <label class="form-label">Email</label>
-                                            <input name="email" type="email" class="form-control" required>
-                                        </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Full Name</label>
+                                        <input name="name" type="text" class="form-control" required>
                                     </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Password</label>
-                                        <div class="input-group">
-                                            <input name="password" type="password" class="form-control" id="password" required>
-                                            <button class="btn btn-outline-secondary" type="button" id="togglePassword">
-                                                <i class="far fa-eye"></i>
-                                            </button>
-                                        </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Email</label>
+                                        <input name="email" type="email" class="form-control" required>
                                     </div>
-                                    <button type="button" class="btn btn-primary w-100" onclick="nextStep(2)">Next</button>
                                 </div>
-
-                                <!-- Step 2: Location -->
-                                <div class="form-step" id="step2">
-                                    <div class="mb-3">
-                                        <label class="form-label">Property Location</label>
-                                        <input name="location" type="text" class="form-control" placeholder="Address" required>
+                                <div class="mb-3">
+                                    <label class="form-label">Password</label>
+                                    <div class="input-group">
+                                        <input name="password" type="password" class="form-control" id="password" required>
+                                        <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                            <i class="far fa-eye"></i>
+                                        </button>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-6 mb-3">
-                                            <label class="form-label">City</label>
-                                            <input name="city" type="text" class="form-control" required>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">City</label>
+                                        <input name="city" type="text" class="form-control" required>
+                                    </div>
+                                          <div class="col-md-6 mb-3">
                                             <label class="form-label">Country</label>
                                             <select name="country" class="form-select" required>
                                                 <option value="">Select country</option>
@@ -264,71 +226,10 @@ if(isset($_POST['host_submit'])){
                                                 <?php endforeach;?>
                                             </select>
                                         </div>
-                                    </div>
-                                    <div class="d-flex justify-content-between">
-                                        <button type="button" class="btn btn-secondary" onclick="prevStep(1)">Previous</button>
-                                        <button type="button" class="btn btn-primary" onclick="nextStep(3)">Next</button>
-                                    </div>
                                 </div>
-
-                                <!-- Step 3: Details -->
-                                <div class="form-step" id="step3">
-                                    <div class="mb-3">
-                                        <label class="form-label">Type of Help Needed</label>
-                                        <select name="skills" class="form-select" multiple required>
-                                        <?php foreach($tasks as $task):?>
-                                        <option value="<?=$task['name']?>"><?=$task['name']?></option>
-                                        <?php endforeach;?>
-                                        </select>
-                                    </div>
-                                      <div class="mb-3">
-                                        <label class="form-label">Title</label>
-                                        <textarea name="title" class="form-control" rows="4" placeholder="Enter your place title" required></textarea>
-                                    </div>
-                                      <div class="mb-3">
-                                        <label class="form-label">Language</label>
-                                        <textarea name="language" class="form-control" rows="4" placeholder="Enter the language required" required></textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Description</label>
-                                        <textarea name="description" class="form-control" rows="4" placeholder="Describe your place and the cultural experience you offer" required></textarea>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label class="form-label">Accommodation Details</label>
-                                        <textarea name="accomodation" class="form-control" rows="3" placeholder="Describe the accommodation you provide" required></textarea>
-                                    </div>
-                                    <div class="d-flex justify-content-between">
-                                        <button type="button" class="btn btn-secondary" onclick="prevStep(2)">Previous</button>
-                                        <button type="button" class="btn btn-primary" onclick="nextStep(4)">Next</button>
-                                    </div>
-                                </div>
-
-                                <!-- Step 4: Photos -->
-                                <div class="form-step" id="step4">
-                                    <div class="mb-3">
-                                        <label class="form-label">Upload Photos</label>
-                                        <input name="photos" type="file" class="form-control" multiple accept="image/*" onchange="previewPhotos(event)" required>
-                                        <small class="text-muted">Upload at least 3 photos of your property</small>
-                                    </div>
-                                    <div id="photoPreview" class="mb-3"></div>
-                                    <div class="d-flex justify-content-between">
-                                        <button type="button" class="btn btn-secondary" onclick="prevStep(3)">Previous</button>
-                                        <button name="host_submit" type="submit" class="btn btn-primary">Submit for Review</button>
-                                    </div>
-                                </div>
+                                <button name="host_submit" type="submit" class="btn btn-primary w-100">Continue to Property Details</button>
                             </form>
                         </div>
-                    </div>
-
-
-
-                    <div class="text-center mt-4">
-                        <p>Already have an account? <a href="login.html" class="text-decoration-none">Log In</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
     <!-- Bootstrap JS -->
