@@ -41,9 +41,20 @@ public function register(User $user){
             echo "Email already exists";
             return false;
         }else{
+          if($user->skills=="No skills for host"){
+                $allskills=$user->skills;
+          }else{
+            $allskills="";
+            $i=0;
+          foreach($user->skills as $skill){
+            $i++;
+            $allskills=$allskills.$i.$skill;
+          }
+          }
+
           $query = "INSERT INTO `users` (name, email, password, Country, image, role, skills, preferences) 
           VALUES ('$user->name', '$user->email', '$user->password', '$user->Country', 
-                  '$user->image', '$user->role', '$user->skills', '$user->preferences')";
+                  '$user->image', '$user->role', '$allskills', '$user->preferences')";
   
           $result = $this->db->insert($query);
  
