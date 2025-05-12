@@ -156,7 +156,6 @@ if(isset($_POST['host_submit'])){
                             </button>
                         </li>
                     </ul>
-
                     <div class="tab-content" id="roleTabContent">
                         <!-- Traveler Registration Form -->
                         <div class="tab-pane fade show active" id="travelerForm">
@@ -185,7 +184,7 @@ if(isset($_POST['host_submit'])){
                                         <label class="form-label">Country</label>
                                         <select name="country" class="form-select" required>
                                         <option value="">Select your country</option>
-                                          <?php foreach($countries as $country):?>
+                                            <?php foreach($countries as $country):?>
                                             <option value="<?=$country['id']?>"><?=$country['name']?></option>
                                             <?php endforeach;?>
                                             <!-- Add more countries -->

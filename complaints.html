@@ -79,7 +79,7 @@
     </nav>
 
     <!-- Main Content -->
-    <div class="container" style="margin-top: 76px;">
+    <div class="container" style="margin-top: 76px; margin-bottom: 76px;">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="complaint-form">
@@ -87,19 +87,19 @@
                     
                     <!-- Step 1: Select Host/Listing -->
                     <div class="mb-4" id="step1">
-                        <h4>Step 1: Select Host or Listing</h4>
+                        <h4>Step 1: Select Complaint Type</h4>
                         <div class="mb-3">
                             <label class="form-label">Complaint Type</label>
                             <select class="form-select" id="complaintType" required>
                                 <option value="">Select type...</option>
+                                <option value="traveler">Traveler</option>
                                 <option value="host">Host</option>
-                                <option value="listing">Listing</option>
                             </select>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Select Specific Host/Listing</label>
-                            <select class="form-select" id="targetSelection" required>
-                                <option value="">First select complaint type...</option>
+                        <div class="mb-3" id="historySection" style="display: none;">
+                            <label class="form-label">Select from History</label>
+                            <select class="form-select" id="historySelection" required>
+                                <option value="">Select from history...</option>
                             </select>
                         </div>
                     </div>
@@ -143,27 +143,30 @@
     <script>
         // Handle complaint type selection
         document.getElementById('complaintType').addEventListener('change', function() {
-            const targetSelect = document.getElementById('targetSelection');
-            targetSelect.innerHTML = '<option value="">Loading...</option>';
+            const historySection = document.getElementById('historySection');
+            const historySelect = document.getElementById('historySelection');
+            historySection.style.display = 'block';
+            historySelect.innerHTML = '<option value="">Loading...</option>';
             
-            // Simulate loading hosts/listings based on type
+            // Simulate loading history based on type
             setTimeout(() => {
                 if (this.value === 'host') {
-                    targetSelect.innerHTML = `
-                        <option value="">Select a host...</option>
-                        <option value="1">Maria & Giovanni (Italy)</option>
-                        <option value="2">Carlos & Family (Spain)</option>
-                        <option value="3">Eco Lodge (Costa Rica)</option>
+                    historySelect.innerHTML = `
+                        <option value="">Select a host from your stay history...</option>
+                        <option value="1">Maria & Giovanni (Italy) - Stayed: Jan 2024</option>
+                        <option value="2">Carlos & Family (Spain) - Stayed: Feb 2024</option>
+                        <option value="3">Eco Lodge (Costa Rica) - Stayed: Mar 2024</option>
                     `;
-                } else if (this.value === 'listing') {
-                    targetSelect.innerHTML = `
-                        <option value="">Select a listing...</option>
-                        <option value="1">Organic Farm Stay - Tuscany</option>
-                        <option value="2">Language School - Barcelona</option>
-                        <option value="3">Eco Lodge - Costa Rica</option>
+                } else if (this.value === 'traveler') {
+                    historySelect.innerHTML = `
+                        <option value="">Select a traveler from your host history...</option>
+                        <option value="1">John Smith - Stayed: Jan 2024</option>
+                        <option value="2">Sarah Johnson - Stayed: Feb 2024</option>
+                        <option value="3">Michael Brown - Stayed: Mar 2024</option>
                     `;
                 } else {
-                    targetSelect.innerHTML = '<option value="">First select complaint type...</option>';
+                    historySection.style.display = 'none';
+                    historySelect.innerHTML = '<option value="">First select complaint type...</option>';
                 }
             }, 500);
         });
@@ -191,11 +194,11 @@
             
             // Validate form
             const complaintType = document.getElementById('complaintType').value;
-            const target = document.getElementById('targetSelection').value;
+            const history = document.getElementById('historySelection').value;
             const subject = document.getElementById('subject').value;
             const description = document.getElementById('description').value;
 
-            if (!complaintType || !target || !subject || !description) {
+            if (!complaintType || !history || !subject || !description) {
                 alert('Please fill in all required fields');
                 return;
             }
