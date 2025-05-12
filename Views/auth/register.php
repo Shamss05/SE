@@ -51,7 +51,6 @@ if(isset($_POST['host_submit'])){
   $email=$_POST['email'];
   $hasedpassword=password_hash($_POST['password'],PASSWORD_DEFAULT);
   $country=$_POST['country'];
-  $skills=$_POST['skills'];
 
   $user=new User;
   $user->name=$name;

@@ -35,7 +35,7 @@ if(isset($_POST['host_submit'])){
     $listing->language_required=$language;
     $result=  $host_listing->savelisting($listing);
 if($result){
-  $host_listing->savephotos($files,$maxFiles);
+  $host_listing->savephotos($files,$maxFiles,$result);
 }
 }
 
