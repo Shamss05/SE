@@ -66,12 +66,13 @@
 
                     <!-- Progress Bar -->
                     <div class="progress mb-4">
-                        <div class="progress-bar" role="progressbar" style="width: 50%"></div>
+                        <div class="progress-bar" role="progressbar" style="width: 33.33%"></div>
                     </div>
 
                     <!-- Step indicators -->
                     <div class="d-flex justify-content-between mb-4">
                         <span class="step-indicator active">Details</span>
+                        <span class="step-indicator">Availability</span>
                         <span class="step-indicator">Photos</span>
                     </div>
 
@@ -109,8 +110,24 @@
                             </div>
                         </div>
 
-                        <!-- Step 2: Photos -->
+                        <!-- Step 2: Availability -->
                         <div class="form-step" id="step2">
+                            <div class="mb-3">
+                                <label class="form-label">Available From</label>
+                                <input type="date" name="available_from" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Available Until</label>
+                                <input type="date" name="available_until" class="form-control" required>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <button type="button" class="btn btn-secondary" onclick="prevStep(1)">Previous</button>
+                                <button type="button" class="btn btn-primary" onclick="nextStep(3)">Next</button>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Photos -->
+                        <div class="form-step" id="step3">
                             <div class="mb-3">
                                 <label class="form-label">Upload Photos</label>
                                 <input name="photos" type="file" class="form-control" multiple accept="image/*" onchange="previewPhotos(event)" required>
@@ -118,7 +135,7 @@
                             </div>
                             <div id="photoPreview" class="mb-3"></div>
                             <div class="d-flex justify-content-between">
-                                <button type="button" class="btn btn-secondary" onclick="prevStep(1)">Previous</button>
+                                <button type="button" class="btn btn-secondary" onclick="prevStep(2)">Previous</button>
                                 <button name="host_submit" type="submit" class="btn btn-primary">Submit for Review</button>
                             </div>
                         </div>
@@ -158,7 +175,7 @@
             document.getElementById('step' + step).classList.add('active');
             
             // Update progress bar
-            document.querySelector('.progress-bar').style.width = (step * 50) + '%';
+            document.querySelector('.progress-bar').style.width = (step * 33.33) + '%';
             
             // Update step indicators
             document.querySelectorAll('.step-indicator').forEach((indicator, index) => {
@@ -173,7 +190,7 @@
         function prevStep(step) {
             document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
             document.getElementById('step' + step).classList.add('active');
-            document.querySelector('.progress-bar').style.width = (step * 50) + '%';
+            document.querySelector('.progress-bar').style.width = (step * 33.33) + '%';
             
             // Update step indicators
             document.querySelectorAll('.step-indicator').forEach((indicator, index) => {
