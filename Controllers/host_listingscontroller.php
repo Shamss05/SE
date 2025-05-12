@@ -2,6 +2,8 @@
 require_once '../../Controllers/DBcontroller.php';
 require_once '../../Models/host_listings.php';
 require_once '../../Models/host_images.php';
+require_once '../../Models/availability.php';
+
 
 class host_listingscontroller{
 protected $db;
@@ -26,14 +28,7 @@ public function savelisting(host_listings $listing){
   }
 
 }
-public function getLastId(){
-    $this->db=new DBcontroller;
-  $this->db->openconnection();
-  $query="SELECT listing_id FROM host_listings ORDER BY listing_id DESC LIMIT 1";
 
-  $result =$this->db->search($query);
-    return $result[0]['listing_id'] ?? null;
-  }
 
 public function savephotos(array $files,int $max,int $list_id){
   $this->db=new DBcontroller;
@@ -65,10 +60,25 @@ public function savephotos(array $files,int $max,int $list_id){
     $query="INSERT INTO `host_images`(`listing_id`, `img_1`, `img_2`, `img_3`) VALUES ('$list_id','$name1','$name2','$name3')";
   $result= $this->db->insert($query);
   if($result){
-    echo "added succesfully";
+    $this->db->success_messages[]= "List added successfully";
+  }else{
+    $this->db->error_messages[]= "Error try again later";
+  }
+}
+
+public function saveavalability(availability $avaliable){
+  $this->db=new DBcontroller;
+  $this->db->openconnection();
+  
+  
+  
+  $query="INSERT INTO `availability`(`listing_id`, `start_date`, `end_date`) VALUES ('$avaliable->listing_id','$avaliable->start_date','$avaliable->end_date')";
+  $result= $this->db->insert($query);
+  if($result){
+    echo  "List added successfully";
     die;
   }else{
-    echo "error";
+    echo "Error try again later";
     die;
   }
 }

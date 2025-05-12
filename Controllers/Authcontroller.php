@@ -1,5 +1,6 @@
 <?php
 require_once '../../Models/user.php';
+require_once '../../Models/admin.php';
 require_once '../../Controllers/DBcontroller.php';
 class Authcontroller{
 protected $db;
@@ -17,6 +18,7 @@ $this->db=new DBcontroller;
       session_start();
       $_SESSION['user']['id']=$result['id'];
       $_SESSION['user']['name']=$result['name'];
+      $_SESSION['user']['image']=$result['image'];
       $_SESSION['user']['role']=$result['role'];
       $_SESSION['user']['error']=$this->db->error_messages;
       $_SESSION['user']['success']=$this->db->success_messages;
@@ -87,8 +89,41 @@ return false;
 
       
 
+
+public function login_admin(admins $admin){
+$this->db=new DBcontroller;
+  if($this->db->openconnection()){
+
+    $query="SELECT * FROM `admins` WHERE email='$admin->email'";
+    $result=$this->db->search($query);
+    if(empty($result)){
+      echo"Wrong email or password";
+      die;
+      return false;
+  }else{
+    if(password_verify($admin->password,$result['password'])){
+      session_start();
+      $_SESSION['admin']['id']=$result['id'];
+      $_SESSION['admin']['name']=$result['name'];
+      $_SESSION['admin']['image']=$result['image'];
+      $_SESSION['admin']['error']=$this->db->error_messages;
+      $_SESSION['admin']['success']=$this->db->success_messages;
+      header("location: ../admin/admin_dashboard.php");
+      return true;
+
+  }
+  }  
+
+  }
+  return false;
 }
 
+
+
+
+
+
+}
 
 
 

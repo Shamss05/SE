@@ -6,6 +6,8 @@ require_once '../../Controllers/host_listingscontroller.php';
 
 require_once '../../Models/host_images.php';
 require_once '../../Models/host_listings.php';
+require_once '../../Models/availability.php';
+
 $host_listing=new host_listingscontroller;
 $countries_data=new Countrycontroller;
 $countries=$countries_data->fetch_counties();
@@ -21,8 +23,11 @@ if(isset($_POST['host_submit'])){
   $description=$_POST['description'];
   $title=$_POST['title'];
   $language=$_POST['language'];
+  $start_date=$_POST['start'];
+  $end_date=$_POST['end'];
   $files = $_FILES['images'];
   $maxFiles = 3;
+
 
 
     $listing=new host_listings;
@@ -36,6 +41,13 @@ if(isset($_POST['host_submit'])){
     $result=  $host_listing->savelisting($listing);
 if($result){
   $host_listing->savephotos($files,$maxFiles,$result);
+    $avaliable=new availability;
+    $avaliable->listing_id=$result;
+    $avaliable->start_date=$start_date;
+    $avaliable->end_date=$end_date;
+    $host_listing->saveavalability($avaliable);
+
+  
 }
 }
 
@@ -174,11 +186,11 @@ if($result){
                         <div class="form-step" id="step2">
                             <div class="mb-3">
                                 <label class="form-label">Available From</label>
-                                <input type="date" name="available_from" class="form-control" required>
+                                <input name="start" type="date" name="available_from" class="form-control" required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Available Until</label>
-                                <input type="date" name="available_until" class="form-control" required>
+                                <input name="end" type="date" name="available_until" class="form-control" required>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <button type="button" class="btn btn-secondary" onclick="prevStep(1)">Previous</button>

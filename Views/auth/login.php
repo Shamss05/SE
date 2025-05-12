@@ -98,7 +98,7 @@ $auth->login($user);
 
                     <div class="text-center">
                         <a href="#" class="text-decoration-none">Forgot password?</a>
-                        <p class="mt-3 mb-0">Don't have an account? <a href="register.html" class="text-decoration-none">Sign Up</a></p>
+                        <p class="mt-3 mb-0">Don't have an account? <a href="../auth/register.php" class="text-decoration-none">Sign Up</a></p>
                     </div>
                 </div>
             </div>

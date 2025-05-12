@@ -1,3 +1,25 @@
+<?php
+
+require_once '../../Models/admin.php';
+require_once '../../Controllers/Authcontroller.php';
+if(isset($_POST['submit'])){
+$email=$_POST['email'];
+$pass=$_POST['password'];
+
+if(!empty($email)&&!empty($pass)){
+$admins=new admins;
+$admins->email=$email;
+$admins->password=$pass;
+$auth=new Authcontroller;
+$auth->login_admin($admins);
+}
+}
+
+
+
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,12 +92,12 @@
                         <i class="fas fa-user-shield admin-icon"></i>
                         <h2 class="mb-4">Admin Login</h2>
                     </div>
-                    <form id="adminLoginForm" method="post" onsubmit="return validateForm(event)">
+                    <form id="adminLoginForm" method="post">
                         <div class="mb-3">
-                            <label for="username" class="form-label">Username</label>
+                            <label for="username" class="form-label">Email</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                <input type="text" class="form-control" id="username" name="username" required>
+                                <input name="email" type="text" class="form-control" id="username" required>
                             </div>
                             <div class="error-message" id="usernameError"></div>
                         </div>
@@ -83,7 +105,7 @@
                             <label for="password" class="form-label">Password</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                                <input type="password" class="form-control" id="password" name="password" required>
+                                <input name="password" type="password" class="form-control" id="password" required>
                                 <button class="btn btn-outline-secondary" type="button" id="togglePassword">
                                     <i class="far fa-eye"></i>
                                 </button>
@@ -91,12 +113,9 @@
                             <div class="error-message" id="passwordError"></div>
                         </div>
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">Login</button>
+                            <button name="submit" type="submit" class="btn btn-primary">Login</button>
                         </div>
                     </form>
-                    <div class="text-center mt-3">
-                        <a href="forgot_password.html" class="text-decoration-none">Forgot Password?</a>
-                    </div>
                 </div>
             </div>
         </div>
@@ -115,49 +134,41 @@
         });
 
         // Form validation
-        function validateForm(event) {
-            event.preventDefault();
-            let isValid = true;
-            const username = document.getElementById('username');
-            const password = document.getElementById('password');
-            const usernameError = document.getElementById('usernameError');
-            const passwordError = document.getElementById('passwordError');
+function validateForm(event) {
+    event.preventDefault();
+    let isValid = true;
+    const username = document.getElementById('username');
+    const password = document.getElementById('password');
+    const usernameError = document.getElementById('usernameError');
+    const passwordError = document.getElementById('passwordError');
 
-            // Reset error messages
-            usernameError.style.display = 'none';
-            passwordError.style.display = 'none';
-            username.classList.remove('is-invalid');
-            password.classList.remove('is-invalid');
+    // Reset error messages
+    usernameError.style.display = 'none';
+    passwordError.style.display = 'none';
+    username.classList.remove('is-invalid');
+    password.classList.remove('is-invalid');
 
-            // Validate username
-            if (!username.value.trim()) {
-                usernameError.textContent = 'Username is required';
-                usernameError.style.display = 'block';
-                username.classList.add('is-invalid');
-                isValid = false;
-            }
+    // Validate username
+    if (!username.value.trim()) {
+        usernameError.textContent = 'Username is required';
+        usernameError.style.display = 'block';
+        username.classList.add('is-invalid');
+        isValid = false;
+    }
 
-            // Validate password
-            if (!password.value) {
-                passwordError.textContent = 'Password is required';
-                passwordError.style.display = 'block';
-                password.classList.add('is-invalid');
-                isValid = false;
-            }
+    // Validate password
+    if (!password.value) {
+        passwordError.textContent = 'Password is required';
+        passwordError.style.display = 'block';
+        password.classList.add('is-invalid');
+        isValid = false;
+    }
 
-            if (isValid) {
-                // Here you would typically send the form data to your server
-                // For now, we'll just log it
-                console.log('Form submitted:', {
-                    username: username.value,
-                    password: password.value
-                });
-                // Redirect to admin dashboard (you'll need to create this page)
-                window.location.href = 'admin_dashboard.html';
-            }
+    if (isValid) {
+        document.getElementById('adminLoginForm').submit(); // ✅ Submit form manually
+    }
+}
 
-            return false;
-        }
     </script>
 </body>
 </html> 

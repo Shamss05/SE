@@ -1,3 +1,12 @@
+<?php
+session_start();
+$name=$_SESSION['admin']['name'];
+if(isset($_GET["logout"])){
+session_unset();
+session_destroy();
+header("Location:./admin_login.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -288,9 +297,9 @@
             <a href="#settings" class="sidebar-link" data-bs-toggle="tab">
                 <i class="fas fa-cog"></i> Settings
             </a>
-            <a href="index.html" class="sidebar-link text-danger">
-                <i class="fas fa-sign-out-alt"></i> Logout
-            </a>
+<a href="?logout=true" class="sidebar-link text-danger">
+    <i class="fas fa-sign-out-alt"></i> Logout
+</a>
         </div>
     </nav>
 
@@ -301,7 +310,7 @@
                 <button class="btn btn-light me-2" id="toggleSidebar">
                     <i class="fas fa-bars"></i>
                 </button>
-                <h4 class="mb-0">Welcome, Admin</h4>
+                <h4 class="mb-0">Welcome, <?=$name?></h4>
             </div>
             <div class="d-flex align-items-center">
                 <div class="dropdown me-3">
@@ -354,7 +363,7 @@
                         <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profile</a></li>
                         <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                        <li><a class="dropdown-item text-danger" href="./admin_dashboard.php?logout=true"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
                     </ul>
                 </div>
             </div>

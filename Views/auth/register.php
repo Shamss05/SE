@@ -186,6 +186,9 @@ if($result){
                                     <small class="text-muted">Hold Ctrl/Cmd to select multiple</small>
                                 </div>
                                 <button name="traveler_submit" type="submit" class="btn btn-primary w-100">Create Traveler Account</button>
+                                <div class="text-center">
+                                  <p class="mt-3 mb-0">Already have an account?<a href="../auth/login.php" class="text-decoration-none">Login</a></p>
+                                </div>
                             </form>
                         </div>
 
