@@ -52,12 +52,6 @@ if(isset($_POST['host_submit'])){
   $hasedpassword=password_hash($_POST['password'],PASSWORD_DEFAULT);
   $country=$_POST['country'];
   $skills=$_POST['skills'];
-  // $location=$_POST['location'];
-  // $city=$_POST['city'];
-  // $accomodation=$_POST['accomodation'];
-  // $description=$_POST['description'];
-  // $title=$_POST['title'];
-  // $language=$_POST['language'];
 
   $user=new User;
   $user->name=$name;
@@ -70,22 +64,10 @@ if(isset($_POST['host_submit'])){
   $user->skills="No skills for host";
   
   $result = $auth->register($user);
+if($result){
 
-  echo "registered";
-  die;
-  
-  // if($result) {
-  //   $listing=new host_listings;
-  //   $listing->accommodation_details=$accomodation;
-  //   $listing->city=$city;
-  //   $listing->country=$country;
-  //   $listing->description=$description;
-  //   $listing->location=$location;
-  //   $listing->title=$title;
-  //   $listing->language_required=$language;
-  //   $result=$host_listing->getLastId();
-  //   $host_listing->savelisting($listing);
-  // } 
+    header("Location: ../auth/login.php");
+}
 }
 
 ?>
@@ -208,25 +190,9 @@ if(isset($_POST['host_submit'])){
                             </form>
                         </div>
 
-                        <!--                                         
-                                        
-                                        
-                                        
-                                                                            <div class="mb-3">
-                                        <label class="form-label">Type of Help Needed</label>
-                                        <select name="skills" class="form-select" multiple required>
-                                        <?php foreach($tasks as $task):?>
-                                        <option value="<?=$task['name']?>"><?=$task['name']?></option>
-                                        <?php endforeach;?>
-                                        </select>
-                                    </div>
-
-                                        
-                                        -->
-
-         <!-- Host Registration Form -->
+           <!-- Host Registration Form -->
                         <div class="tab-pane fade" id="hostForm">
-                            <form method="post" id="hostRegistration" action="host_details.html">
+                            <form method="post" id="hostRegistration">
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label">Full Name</label>
