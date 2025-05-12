@@ -4,6 +4,7 @@ require_once '../../Controllers/countrycontroller.php';
 require_once '../../Controllers/host_listingscontroller.php';
 
 
+require_once '../../Models/host_images.php';
 require_once '../../Models/host_listings.php';
 $host_listing=new host_listingscontroller;
 $countries_data=new Countrycontroller;
@@ -13,7 +14,6 @@ $tasks_data=new taskscontroller;
 $tasks=$tasks_data->fetch_tasks();
 
 if(isset($_POST['host_submit'])){
-
   $location=$_POST['location'];
   $country=$_POST['country'];
   $city=$_POST['city'];
@@ -21,6 +21,8 @@ if(isset($_POST['host_submit'])){
   $description=$_POST['description'];
   $title=$_POST['title'];
   $language=$_POST['language'];
+  $files = $_FILES['images'];
+  $maxFiles = 3;
 
 
     $listing=new host_listings;
@@ -32,7 +34,9 @@ if(isset($_POST['host_submit'])){
     $listing->title=$title;
     $listing->language_required=$language;
     $result=  $host_listing->savelisting($listing);
-
+if($result){
+  $host_listing->savephotos($files,$maxFiles);
+}
 }
 
 ?>
@@ -117,7 +121,7 @@ if(isset($_POST['host_submit'])){
                         <span class="step-indicator">Photos</span>
                     </div>
 
-                    <form method="post" id="hostDetailsForm">
+                    <form method="post" enctype="multipart/form-data" id="hostDetailsForm">
                         <!-- Step 1: Details -->
                         <div class="form-step active" id="step1">
                           <div class="mb-3">
@@ -186,7 +190,7 @@ if(isset($_POST['host_submit'])){
                         <div class="form-step" id="step3">
                             <div class="mb-3">
                                 <label class="form-label">Upload Photos</label>
-                                <input name="photos" type="file" class="form-control" multiple accept="image/*" onchange="previewPhotos(event)" required>
+                                <input name="images[]" type="file" class="form-control" multiple accept="image/*" onchange="previewPhotos(event)" required>
                                 <small class="text-muted">Upload at least 3 photos of your property</small>
                             </div>
                             <div id="photoPreview" class="mb-3"></div>

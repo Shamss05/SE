@@ -27,7 +27,8 @@ $this->db=new DBcontroller;
         $_SESSION['host']['name']=$result['name'];
         $_SESSION['host']['role']=$result['role'];
         $query2="SELECT * FROM `host_listings` WHERE `host_id`=$host_id";
-        $result2=$this->db->search($query);
+        $result2=$this->db->search($query2);
+
         if($result2){
           header("location: ../index.html");
         }else{
