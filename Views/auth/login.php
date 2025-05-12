@@ -77,16 +77,7 @@ $auth->login($user);
         <div class="row justify-content-center">
             <div class="col-md-6 col-lg-5">
                 <div class="login-container">
-                    <h2 class="text-center mb-4">Welcome Back</h2>
-                    
-                    <!-- Role Selection -->
-                    <div class="btn-group w-100 mb-4" role="group">
-                        <input type="radio" class="btn-check" name="userRole" id="travelerRole" checked>
-                        <label class="btn btn-outline-primary" for="travelerRole">Traveler</label>
-                        <input type="radio" class="btn-check" name="userRole" id="hostRole">
-                        <label class="btn btn-outline-primary" for="hostRole">Host</label>
-                    </div>
-                    
+                    <h2 class="text-center mb-4">Welcome Back</h2>                    
                     <!-- Login Form -->
                     <form method="post" id="loginForm">
                         <div class="mb-3">
