@@ -270,7 +270,7 @@ $result=$hostlistings->get_Data();
                     <div class="col-md-6 col-lg-4">
                         <div class="card h-100">
                             <div class="position-relative">
-                                <img src="https://images.unsplash.com/photo-1500076656116-558758c991c1" class="card-img-top" alt="Host Location">
+                                <img src="<?=baseurl("uploads/").$hostlisting['img_1']?>" class="card-img-top" alt="Host Location">
                                 <button class="btn btn-outline-danger btn-sm rounded-circle wishlist-btn" 
                                         onclick="toggleFavorite('host1', this)" 
                                         data-host-id="host1">
@@ -279,10 +279,10 @@ $result=$hostlistings->get_Data();
                             </div>
                             <div class="card-body">
                                 <div class="d-flex align-items-center mb-3">
-                                    <img src="https://randomuser.me/api/portraits/women/68.jpg" class="rounded-circle me-2" width="40" alt="Host">
+                                    <img src="<?=baseurl("uploads/").$hostlisting['image']?>" class="rounded-circle me-2" width="40" alt="Host">
                                     <div>
-                                        <h5 class="card-title mb-0">Maria & Giovanni</h5>
-                                        <small class="text-muted">Tuscany, Italy
+                                        <h5 class="card-title mb-0"><?=$hostlisting['name']?></h5>
+                                        <small class="text-muted"><?=$hostlisting['country_name']?>
                                         </small>
                                     </div>
                                 </div>
@@ -297,7 +297,7 @@ $result=$hostlistings->get_Data();
                                         <small class="text-muted">(4.5)</small>
                                     </div>
                                 </div>
-                                <p class="card-text">Help with organic farming and experience the beautiful Balinese culture. Perfect for nature lovers!</p>
+                                <p class="card-text"><?=$hostlisting['accommodation_details']?></p>
                                 <div class="mb-3">
                                     <span class="badge bg-light text-dark me-1">Farming</span>
                                     <span class="badge bg-light text-dark me-1">Gardening</span>
@@ -307,139 +307,24 @@ $result=$hostlistings->get_Data();
                             <div class="card-footer bg-white border-top-0">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
-                                        <small class="text-muted">Last updated: 2 days ago</small>
+                                        <small class="text-muted">Created: <?=$hostlisting['created_at']?></small>
                                     </div>
                                     <div class="d-flex gap-2">
-                                        <a href="host-card.html" class="btn btn-outline-primary btn-sm">
+                                      <?php $id=$hostlisting['listing_id']?>
+                                        <a href="<?=baseurl('Traveler/host-card.php')."?list_id=$id"?>" class="btn btn-outline-primary btn-sm">
                                             <i class="fas fa-eye me-1"></i>View Details
                                         </a>
-                                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#membershipModal">
+                                        <a href="<?=baseurl("Traveler/membership.html")?>" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#membershipModal">
                                             <i class="fas fa-comment me-1"></i>Message
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <?php endforeach;?>
-
-                    <!-- Host Card 2 -->
-                    <div class="col-md-6 col-lg-4">
-                        <div class="card h-100">
-                            <div class="position-relative">
-                                <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" class="card-img-top" alt="Host Location">
-                                <button class="btn btn-outline-danger btn-sm rounded-circle wishlist-btn" 
-                                        onclick="toggleFavorite('host2', this)"
-                                        data-host-id="host2">
-                                    <i class="far fa-heart"></i>
-                                </button>
-                            </div>
-                            <div class="card-body">
-                                <div class="d-flex align-items-center mb-3">
-                                    <img src="https://randomuser.me/api/portraits/men/45.jpg" class="rounded-circle me-2" width="40" alt="Host">
-                                    <div>
-                                        <h5 class="card-title mb-0">Carlos & Family</h5>
-                                        <small class="text-muted">Barcelona, Spain</small>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center mb-3">
-                                    <span class="badge bg-warning me-2">From June 2024</span>
-                                    <div class="text-warning">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                        <small class="text-muted">(4.0)</small>
-                                    </div>
-                                </div>
-                                <p class="card-text">Join our language school in vibrant Barcelona. Help teach English while immersing yourself in Spanish culture and language.</p>
-                                <div class="mb-3">
-                                    <span class="badge bg-light text-dark me-1">Teaching</span>
-                                    <span class="badge bg-light text-dark me-1">Languages</span>
-                                    <span class="badge bg-light text-dark">Childcare</span>
-                                </div>
-                            </div>
-                            <div class="card-footer bg-white border-top-0">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <small class="text-muted">1-3 months stay</small>
-                                    </div>
-                                    <div class="d-flex gap-2">
-                                        <a href="host-card.html" class="btn btn-outline-primary btn-sm">
-                                            <i class="fas fa-eye me-1"></i>View Details
-                                        </a>
-                                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#membershipModal">
-                                            <i class="fas fa-comment me-1"></i>Message
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Host Card 3 -->
-                    <div class="col-md-6 col-lg-4">
-                        <div class="card h-100">
-                            <div class="position-relative">
-                                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945" class="card-img-top" alt="Host Location">
-                                <button class="btn btn-outline-danger btn-sm rounded-circle wishlist-btn" 
-                                        onclick="toggleFavorite('host3', this)"
-                                        data-host-id="host3">
-                                    <i class="far fa-heart"></i>
-                                </button>
-                            </div>
-                            <div class="card-body">
-                                <div class="d-flex align-items-center mb-3">
-                                    <img src="https://randomuser.me/api/portraits/men/32.jpg" class="rounded-circle me-2" width="40" alt="Host">
-                                    <div>
-                                        <h5 class="card-title mb-0">Eco Lodge Costa Rica</h5>
-                                        <small class="text-muted">Monteverde, Costa Rica</small>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center mb-3">
-                                    <span class="badge bg-success me-2">Available Now</span>
-                                    <div class="text-warning">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <small class="text-muted">(5.0)</small>
-                                    </div>
-                                </div>
-                                <p class="card-text">Join our eco-friendly lodge in the rainforest. Help with guest services, maintenance, and sustainability projects while exploring nature.</p>
-                                <div class="mb-3">
-                                    <span class="badge bg-light text-dark me-1">Hostel Work</span>
-                                    <span class="badge bg-light text-dark me-1">Eco Projects</span>
-                                    <span class="badge bg-light text-dark">Gardening</span>
-                                </div>
-                            </div>
-                            <div class="card-footer bg-white border-top-0">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <small class="text-muted">1-2 weeks stay</small>
-                                    </div>
-                                    <div class="d-flex gap-2">
-                                        <a href="host-card.html" class="btn btn-outline-primary btn-sm">
-                                            <i class="fas fa-eye me-1"></i>View Details
-                                        </a>
-                                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#membershipModal">
-                                            <i class="fas fa-comment me-1"></i>Message
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <?php endforeach;?>              
                 </div>
 
-                <!-- Load More Button -->
-                <div class="text-center mt-4">
-                    <button class="btn btn-outline-primary btn-lg">
-                        <i class="fas fa-sync-alt me-2"></i>Load More Hosts
-                    </button>
-                </div>
             </div>
 
             <!-- Map View -->

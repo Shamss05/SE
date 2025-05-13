@@ -1,3 +1,22 @@
+<?php
+require_once '../../vendor/functions.php';
+require_once '../../Controllers/host_listingscontroller.php';
+$host_listing=new host_listingscontroller;
+if(isset($_GET['list_id'])){
+$list_id=$_GET['list_id'];
+$list=$host_listing->get_by_id($list_id);
+$skills=$list['skills'];
+$arr_skills=explode(',',$skills);
+
+}else{
+  baseurl("error403.php");
+}
+
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -217,13 +236,10 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
+                        <a class="nav-link" href="<?=baseurl()?>">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="hosts.html">Find Hosts</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="opportunities.html">Opportunities</a>
+                        <a class="nav-link active" href="<?=baseurl("Traveler/hosts.php")?>">Find Hosts</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="index.html#how-it-works">How It Works</a>
@@ -233,8 +249,8 @@
                     <a href="favorites.html" class="btn btn-outline-primary me-2">
                         <i class="fas fa-heart me-1"></i>Favorites
                     </a>
-                    <a href="login.html" class="btn btn-outline-primary me-2">Login</a>
-                    <a href="register.html" class="btn btn-primary">Sign Up</a>
+                    <a href="<?=baseurl("auth/login.php")?>" class="btn btn-outline-primary me-2">Login</a>
+                    <a href="<?=baseurl("auth/register.php")?>" class="btn btn-primary">Sign Up</a>
                 </div>
             </div>
         </div>
@@ -245,13 +261,13 @@
         <div class="container">
             <!-- Profile Header -->
             <div class="profile-header">
-                <img src="https://images.unsplash.com/photo-1500076656116-558758c991c1" class="cover-photo w-100" alt="Cover Photo">
+                <img src="<?=baseurl('uploads/').$list['img_1']?>" class="cover-photo w-100" alt="Cover Photo">
                 <div class="d-flex align-items-center p-4">
-                    <img src="https://randomuser.me/api/portraits/women/68.jpg" class="host-avatar" alt="Host">
+                    <img src="<?=baseurl('uploads/').$list['image']?>" class="host-avatar" alt="Host">
                     <div class="ms-4">
-                        <h1 class="mb-1">Maria & Giovanni</h1>
+                        <h1 class="mb-1"><?=$list['name']?></h1>
                         <p class="text-muted mb-2">
-                            <i class="fas fa-map-marker-alt me-1"></i>Tuscany, Italy
+                            <i class="fas fa-map-marker-alt me-1"></i><?=$list['country_name'].','.$list['city']?>
                         </p>
                         <div class="rating mb-2">
                             <i class="fas fa-star"></i>
@@ -265,7 +281,7 @@
                             <span class="availability-badge">
                                 <i class="fas fa-calendar-check me-1"></i>Available Now
                             </span>
-                            <a href="chat.html" class="btn btn-primary">
+                            <a href="<?=baseurl("Traveler/membership.html")?>" class="btn btn-primary">
                                 <i class="fas fa-comments me-1"></i>Chat with Host
                             </a>
                         </div>
@@ -279,19 +295,16 @@
                     <!-- About Section -->
                     <div class="section-card">
                         <h3 class="mb-4">About Us</h3>
-                        <p>Welcome to our family-run organic farm in the heart of Tuscany! We are Maria and Giovanni, a couple passionate about sustainable farming and sharing our Italian culture with travelers from around the world.</p>
-                        <p>Our farm has been in the family for generations, and we take pride in maintaining traditional farming practices while incorporating modern sustainable techniques. We grow a variety of organic vegetables, fruits, and olives, and produce our own olive oil and wine.</p>
-                        <p>We love hosting volunteers who are interested in learning about organic farming, Italian culture, and sustainable living. In exchange for your help, we offer comfortable accommodation, delicious home-cooked meals, and an authentic Italian experience.</p>
+                            <p><?=$list['description']?></p>
                     </div>
 
                     <!-- Help Section -->
                     <div class="section-card">
                         <h3 class="mb-4">Help Needed</h3>
                         <div class="mb-4">
-                            <span class="help-tag"><i class="fas fa-seedling me-1"></i>Farming</span>
-                            <span class="help-tag"><i class="fas fa-utensils me-1"></i>Cooking</span>
-                            <span class="help-tag"><i class="fas fa-wine-bottle me-1"></i>Wine Making</span>
-                            <span class="help-tag"><i class="fas fa-tree me-1"></i>Gardening</span>
+                            <?php for($i=0;$i<count($arr_skills);$i++):?>
+                            <span class="help-tag"><i class="fas fa-seedling me-1"></i><?=$arr_skills[$i]?></span>
+                            <?php endfor;?>
                         </div>
                         <p>We need help with various farm activities, including:</p>
                         <ul>
@@ -308,8 +321,7 @@
                     <!-- Accommodation Section -->
                     <div class="section-card">
                         <h3 class="mb-4">Accommodation</h3>
-                        <p>We offer comfortable accommodation in our traditional Tuscan farmhouse. Volunteers stay in a private room with shared bathroom facilities. The house is equipped with modern amenities while maintaining its rustic charm.</p>
-                        <p>All meals are provided and are made with fresh ingredients from our farm. We love cooking together and sharing our traditional recipes!</p>
+                        <p><?=$list['accommodation_details']?></p>
                     </div>
 
                     <!-- Gallery Section -->
@@ -317,13 +329,13 @@
                         <h3 class="mb-4">Photo Gallery</h3>
                         <div class="row">
                             <div class="col-md-4">
-                                <img src="https://images.unsplash.com/photo-1500076656116-558758c991c1" class="gallery-item w-100" alt="Farm">
+                                <img src="<?=baseurl('uploads/').$list['img_1']?>" class="gallery-item w-100" alt="Farm">
                             </div>
                             <div class="col-md-4">
-                                <img src="https://images.unsplash.com/photo-1518546305927-5a555bb7020d" class="gallery-item w-100" alt="Accommodation">
+                                <img src="<?=baseurl('uploads/').$list['img_2']?>" class="gallery-item w-100" alt="Accommodation">
                             </div>
                             <div class="col-md-4">
-                                <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4" class="gallery-item w-100" alt="Activities">
+                                <img src="<?=baseurl('uploads/').$list['img_3']?>" class="gallery-item w-100" alt="Activities">
                             </div>
                         </div>
                     </div>
@@ -413,7 +425,7 @@
                                                 </div>
                                                 <div>
                                                     <h6 class="mb-0">Next Available</h6>
-                                                    <small class="text-muted">June 1, 2024</small>
+                                                    <small class="text-muted"><?=$list['start_date']?></small>
                                                 </div>
                                             </div>
                                         </div>
@@ -650,33 +662,33 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form method="post">
                         <div class="mb-3">
                             <label class="form-label">Select Dates</label>
                             <div class="input-group">
-                                <input type="date" class="form-control" placeholder="Start Date">
+                                <input name="start" type="date" class="form-control" placeholder="Start Date">
                                 <span class="input-group-text">to</span>
-                                <input type="date" class="form-control" placeholder="End Date">
+                                <input name="end" type="date" class="form-control" placeholder="End Date">
                             </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Number of Volunteers</label>
-                            <select class="form-select">
-                                <option value="1">1 Volunteer</option>
-                                <option value="2">2 Volunteers</option>
-                                <option value="3">3 Volunteers</option>
-                                <option value="4">4 Volunteers</option>
+                            <select name="volunteers" class="form-select">
+                                <option value="1 Volunteer">1 Volunteer</option>
+                                <option value="2 Volunteers">2 Volunteers</option>
+                                <option value="3 Volunteers">3 Volunteers</option>
+                                <option value="4 Volunteers">4 Volunteers</option>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Special Requirements</label>
-                            <textarea class="form-control" rows="3" placeholder="Any special requirements or questions?"></textarea>
+                            <textarea name="message" class="form-control" rows="3" placeholder="Any special requirements or questions?"></textarea>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary">Check Availability</button>
+                    <button name="submit" type="submit" class="btn btn-primary">Check Availability</button>
                 </div>
             </div>
         </div>

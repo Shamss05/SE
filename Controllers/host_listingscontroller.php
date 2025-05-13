@@ -3,6 +3,7 @@ require_once '../../Controllers/DBcontroller.php';
 require_once '../../Models/host_listings.php';
 require_once '../../Models/host_images.php';
 require_once '../../Models/availability.php';
+require_once '../../vendor/functions.php';
 
 
 class host_listingscontroller{
@@ -87,11 +88,21 @@ public function get_Data (){
   $this->db=new DBcontroller;
   $this->db->openconnection();
 
-  $query='SELECT * FROM `host_listings` WHERE STATUS = "Approved"';
+  $query='SELECT * FROM `listing_details` WHERE STATUS = "Approved"';
   $result=$this->db->fetch($query);
   return $result;
 }
 
+public function get_by_id($id){
+  $this->db=new DBcontroller;
+  $this->db->openconnection();
+  $query="SELECT * FROM `listing_details` WHERE listing_id=$id";
+  $result=$this->db->search($query);
+  if(empty($result)){
+    baseurl("Traveler/hosts.php");
+  }
+return $result;
+}
 
 }
 
