@@ -1,12 +1,33 @@
 <?php
 require_once '../../vendor/functions.php';
 require_once '../../Controllers/host_listingscontroller.php';
+require_once '../../Models/stay_request.php';
+require_once '../../Controllers/stayrequestcontroller.php';
 $host_listing=new host_listingscontroller;
 if(isset($_GET['list_id'])){
 $list_id=$_GET['list_id'];
 $list=$host_listing->get_by_id($list_id);
 $skills=$list['skills'];
 $arr_skills=explode(',',$skills);
+if(isset($_POST['submit'])){
+$start_date=$_POST['start'];
+$end_date=$_POST['end'];
+$message=$_POST['volunteers']." ".$_POST['message'];
+
+
+$request_stay=new stay_request;
+$request_stay->listing_id=$list_id;
+$request_stay->traveler_id=$_SESSION['user']['id'];
+$request_stay->start_date=$start_date;
+$request_stay->end_date=$end_date;
+$request_stay->message=$message;
+$request_stay->status="Pending";
+
+
+$request=new stayrequestcontroller;
+$request->save_request($request_stay);
+
+}
 
 }else{
   baseurl("error403.php");
@@ -536,7 +557,7 @@ $arr_skills=explode(',',$skills);
                             <!-- Action Buttons -->
                             <div class="d-grid gap-2">
                                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookingModal">
-                                    <i class="fas fa-calendar-plus me-2"></i>Check Availability
+                                    <i class="fas fa-calendar-plus me-2"></i>Request Stay
                                 </button>
                                 <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#notifyModal">
                                     <i class="fas fa-bell me-2"></i>Notify Me When Available
@@ -658,7 +679,7 @@ $arr_skills=explode(',',$skills);
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Check Availability</h5>
+                    <h5 class="modal-title">Request Stay</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
@@ -688,7 +709,7 @@ $arr_skills=explode(',',$skills);
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button name="submit" type="submit" class="btn btn-primary">Check Availability</button>
+                    <button name="submit" type="submit" class="btn btn-primary">Request Stay</button>
                 </div>
             </div>
         </div>

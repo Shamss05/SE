@@ -1,10 +1,19 @@
 <?php
+require_once "../../Controllers/host_listingscontroller.php";
+require_once "../../vendor/functions.php";
+$host_listing=new host_listingscontroller;
 session_start();
 $name=$_SESSION['admin']['name'];
 if(isset($_GET["logout"])){
 session_unset();
 session_destroy();
 header("Location:./admin_login.php");
+}
+$pending=$host_listing->get_pending_list();
+if(isset($_GET['approved'])){
+  $id=$_GET['approved'];
+
+$host_listing->update_statues($id);
 }
 ?>
 <!DOCTYPE html>
@@ -14,9 +23,9 @@ header("Location:./admin_login.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - WanderNest</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../vendor/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../../vendor/css/font-awesome.min.css">
     <style>
         .sidebar {
             position: fixed;
@@ -355,7 +364,7 @@ header("Location:./admin_login.php");
                 </div>
                 <div class="dropdown">
                     <button class="btn btn-light d-flex align-items-center gap-2" data-bs-toggle="dropdown">
-                        <img src="https://randomuser.me/api/portraits/men/1.jpg" class="rounded-circle" width="32" height="32">
+                        <!-- <img src="https://randomuser.me/api/portraits/men/1.jpg" class="rounded-circle" width="32" height="32"> -->
                         <span>Admin User</span>
                         <i class="fas fa-chevron-down"></i>
                     </button>
@@ -626,7 +635,7 @@ header("Location:./admin_login.php");
                 <div class="row mb-4">
                     <div class="col-md-3">
                         <select class="form-select">
-                            <option value="">All Statuses</option>
+                            <option value="">All Statues</option>
                             <option value="pending">Pending</option>
                             <option value="approved">Approved</option>
                             <option value="rejected">Rejected</option>
@@ -650,31 +659,33 @@ header("Location:./admin_login.php");
                                 <th>ID</th>
                                 <th>Host Name</th>
                                 <th>Location</th>
-                                <th>Type</th>
-                                <th>Date Applied</th>
+                                <th>Title</th>
+                                <th>start_date</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>#5678</td>
-                                <td>Maria Garcia</td>
-                                <td>Barcelona, Spain</td>
-                                <td>Language School</td>
-                                <td>2024-03-14</td>
+                              <?php foreach($pending as $list):?>
+                                <td><?=$list['listing_id']?></td>
+                                <td><?=$list['name']?></td>
+                                <td><?=$list['country'].$list['city']?></td>
+                                <td><?=$list['title']?></td>
+                                <td><?=$list['start_date']?></td>
                                 <td><span class="badge bg-warning status-badge">Pending</span></td>
                                 <td class="action-buttons">
                                     <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#hostModal">
                                         <i class="fas fa-eye"></i>
                                     </button>
-                                    <button class="btn btn-success btn-sm">
+                                    <a href="../admin/admin_dashboard.php?approved=<?=$list['listing_id']?>"  class="btn btn-success btn-sm">
                                         <i class="fas fa-check"></i>
-                                    </button>
+                                    </a>
                                     <button class="btn btn-danger btn-sm">
                                         <i class="fas fa-times"></i>
                                     </button>
                                 </td>
+                                <?php endforeach;?>
                             </tr>
                             <!-- More host rows... -->
                         </tbody>
@@ -742,7 +753,7 @@ header("Location:./admin_login.php");
                             <tr>
                                 <td>#1001</td>
                                 <td>
-                                    <img src="https://randomuser.me/api/portraits/men/1.jpg" class="rounded-circle me-2" width="30">
+                                    <!-- <img src="https://randomuser.me/api/portraits/men/1.jpg" class="rounded-circle me-2" width="30"> -->
                                     John Smith
                                 </td>
                                 <td>john@example.com</td>
@@ -764,7 +775,7 @@ header("Location:./admin_login.php");
                             <tr>
                                 <td>#1002</td>
                                 <td>
-                                    <img src="https://randomuser.me/api/portraits/women/1.jpg" class="rounded-circle me-2" width="30">
+                                    <!-- <img src="https://randomuser.me/api/portraits/women/1.jpg" class="rounded-circle me-2" width="30"> -->
                                     Sarah Johnson
                                 </td>
                                 <td>sarah@example.com</td>
@@ -1058,8 +1069,8 @@ header("Location:./admin_login.php");
                     <p>Detailed description of the complaint goes here...</p>
                     <h6>Attached Evidence</h6>
                     <div class="d-flex gap-2">
-                        <img src="https://via.placeholder.com/100" alt="Evidence 1" class="img-thumbnail">
-                        <img src="https://via.placeholder.com/100" alt="Evidence 2" class="img-thumbnail">
+                        <!-- <img src="https://via.placeholder.com/100" alt="Evidence 1" class="img-thumbnail">
+                        <img src="https://via.placeholder.com/100" alt="Evidence 2" class="img-thumbnail"> -->
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -1098,9 +1109,9 @@ header("Location:./admin_login.php");
                     <p>Detailed description of the host and their offering...</p>
                     <h6>Photos</h6>
                     <div class="d-flex gap-2">
-                        <img src="https://via.placeholder.com/100" alt="Location 1" class="img-thumbnail">
+                        <!-- <img src="https://via.placeholder.com/100" alt="Location 1" class="img-thumbnail">
                         <img src="https://via.placeholder.com/100" alt="Location 2" class="img-thumbnail">
-                        <img src="https://via.placeholder.com/100" alt="Location 3" class="img-thumbnail">
+                        <img src="https://via.placeholder.com/100" alt="Location 3" class="img-thumbnail"> -->
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -1113,7 +1124,7 @@ header("Location:./admin_login.php");
     </div>
 
     <!-- Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../vendor/js/bootstrap.bundle.min.js"></script>
     <script>
         // Handle sidebar navigation
         document.querySelectorAll('.sidebar-link').forEach(link => {

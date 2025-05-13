@@ -104,6 +104,19 @@ public function get_by_id($id){
 return $result;
 }
 
+public function get_pending_list(){
+  $this->db=new DBcontroller;
+  $this->db->openconnection();
+  $query="SELECT * FROM `listing_details` WHERE `status`='pending'";
+  return $result=$this->db->fetch($query);
+
+}
+public function update_statues($id) {
+  $this->db=new DBcontroller;
+  $this->db->openconnection();
+  $query="UPDATE `host_listings`WHERE `id`='$id' SET `status`='Approved'";
+  return $result=$this->db->update($query);
+}
 }
 
 

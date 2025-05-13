@@ -6,7 +6,8 @@ class stay_request{
   public $listing_id;
   public $message;
   public $status;
-  public $requested_date;
+  public $start_date;
+  public $end_date;
 }
 
 
