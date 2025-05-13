@@ -1,3 +1,14 @@
+<?php
+ require_once "../vendor/functions.php";
+session_start();
+if(isset($_GET['logout'])){
+session_unset();
+session_destroy();
+header("Location:./index.php");
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,8 +80,8 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="index.html">
-                <i class="fas fa-globe-americas me-2"></i>kareem
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-globe-americas me-2"></i>WanderNest
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -78,7 +89,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="index.html">Home</a>
+                        <a class="nav-link active" href="<?=baseurl()?>">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="hosts.html">Find Hosts</a>
@@ -102,8 +113,22 @@
                     <a href="favorites.html" class="btn btn-outline-primary me-2">
                         <i class="fas fa-heart me-1"></i>Favorites
                     </a>
-                    <a href="login.html" class="btn btn-outline-primary me-2">Login</a>
-                    <a href="register.html" class="btn btn-primary">Sign Up</a>
+                    <?php if(isset($_SESSION['user'])):?>
+                    <a href="<?=baseurl("Traveler/traveler-profile.php")?>" class="btn btn-outline-primary me-2">
+                        <i class="fas fa-user me-1"></i>Profile
+                    </a>
+                    <?php elseif(isset($_SESSION['host'])):?>
+                    <a href="./Host/host-profile.html" class="btn btn-outline-primary me-2">
+                        <i class="fas fa-user me-1"></i>Profile
+                    </a>
+                    <?php endif;?>
+                    <?php if(!isset($_SESSION['user'])&&!isset($_SESSION['host'])):?>
+                    <a href="./auth/login.php" class="btn btn-outline-primary me-2">Login</a>
+                    <a href="./auth/register.php" class="btn btn-primary">Sign Up</a>
+                    <?php else:?>
+                    <a href="./index.php?logout=true" class="btn btn-danger">Log out</a>
+
+                    <?php endif;?>
                 </div>
             </div>
         </div>

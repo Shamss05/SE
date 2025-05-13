@@ -1,3 +1,29 @@
+<?php
+session_start();
+require_once '../../Controllers/countrycontroller.php';
+require_once '../../Controllers/taskscontroller.php';
+require_once '../../Controllers/Authcontroller.php';
+
+$auth=new Authcontroller;
+$tasks=new taskscontroller;
+$userdata=new Countrycontroller;
+$auth->auth(null,2);
+$result=$userdata->fetch_user_data($_SESSION['user']['id']);
+require_once '../../vendor/functions.php';
+if(empty($_SESSION['user']['image'])){
+$_SESSION['user']['image']="user.png";
+}
+$all_skills=$tasks->fetch_tasks();
+$edit_mode = isset($_GET['edit']) && $_GET['edit'] == 'true';
+
+if(isset($_POST['save_profile'])){
+$prefernces=$_POST['preferences'];
+$skillsArray = $_POST['skills'];
+$skills = implode(',', $skillsArray);
+  $auth->update_user_info($prefernces,$skills,$_SESSION['user']['id']);
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,7 +78,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
         <div class="container">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="<?=baseurl()?>">
                 <i class="fas fa-globe-americas me-2"></i>WanderNest
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -68,14 +94,14 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown">
-                            <img src="https://randomuser.me/api/portraits/men/32.jpg" class="rounded-circle" width="30" height="30">
-                            John Doe
+                            <img src="<?=baseurl("uploads/").$_SESSION['user']['image']?>" class="rounded-circle" width="30" height="30">
+                            <?=$_SESSION['user']['name']?>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="traveler-profile.html">My Profile</a></li>
+                            <li><a class="dropdown-item" href="<?=baseurl("Traveler/traveler-profile.php")?>">My Profile</a></li>
                             <li><a class="dropdown-item" href="settings.html">Settings</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="login.html">Logout</a></li>
+                            <li><a class="dropdown-item" href="<?=baseurl()?>?logout=true">Logout</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -88,7 +114,7 @@
         <button class="btn btn-light edit-btn">
             <i class="fas fa-camera me-2"></i>Change Cover
         </button>
-        <img src="https://randomuser.me/api/portraits/men/32.jpg" class="profile-avatar rounded-circle">
+        <img src="<?=baseurl("uploads/").$_SESSION['user']['image']?>" class="profile-avatar rounded-circle">
     </div>
 
     <!-- Profile Content -->
@@ -98,13 +124,13 @@
             <div class="col-md-4">
                 <div class="section-card">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h4 class="mb-0">John Doe</h4>
+                        <h4 class="mb-0"><?=$_SESSION['user']['name']?></h4>
                         <button class="btn btn-outline-primary btn-sm">
                             <i class="fas fa-edit me-2"></i>Edit
                         </button>
                     </div>
                     <p class="text-muted mb-3">
-                        <i class="fas fa-map-marker-alt me-2"></i>New York, USA
+                        <i class="fas fa-map-marker-alt me-2"></i><?=$result['country_name']?>
                     </p>
                     <div class="profile-stats mb-3">
                         <div class="row text-center">
@@ -177,28 +203,46 @@
                         <div class="tab-pane fade show active" id="about">
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h5>About Me</h5>
-                                <button class="btn btn-outline-primary btn-sm">
-                                    <i class="fas fa-edit me-2"></i>Edit
-                                </button>
+                                <a href="?edit=<?= $edit_mode ? 'false' : 'true' ?>" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-edit me-2"></i><?= $edit_mode ? 'Cancel' : 'Edit' ?>
+                                </a>
+
                             </div>
-                            <p>Passionate traveler with experience in teaching English and organic farming. Love cultural exchange and meeting new people.</p>
+                             <?php if ($edit_mode): ?>
+        <form action="traveler-profile.php" method="POST">
+            <div class="mb-3">
+                <label for="preferences" class="form-label">Preferences</label>
+                <textarea name="preferences" id="preferences" class="form-control" rows="4"><?= htmlspecialchars($result['preferences']) ?></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="skills" class="form-label">Skills & Interests</label>
+            <select name="skills[]" id="skills" class="form-select" multiple>
+        <?php foreach ($all_skills as $skill): ?>
+            <option value="<?= $skill['name'] ?>">
+                <?= $skill['name'] ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+    <div class="form-text">Hold Ctrl (Windows) or Command (Mac) to select multiple.</div>
+            </div>
+            <button type="submit" name="save_profile" class="btn btn-primary">Save Changes</button>
+        </form>
+        <?php else:?>
+                      <p><?=$result['preferences']?></p>
                             
                             <h6 class="mt-4 mb-3">Skills & Interests</h6>
                             <div class="d-flex flex-wrap gap-2 mb-4">
-                                <span class="badge bg-primary">Teaching</span>
+                                <span class="badge bg-primary"><?=$result['skills']?></span>
                                 <span class="badge bg-primary">Farming</span>
                                 <span class="badge bg-primary">Cooking</span>
                                 <span class="badge bg-primary">Languages</span>
                             </div>
 
-                            <h6 class="mt-4 mb-3">Languages</h6>
-                            <div class="d-flex flex-wrap gap-2">
-                                <span class="badge bg-success">English (Native)</span>
-                                <span class="badge bg-success">Spanish (Intermediate)</span>
-                                <span class="badge bg-success">French (Basic)</span>
-                            </div>
+              
                         </div>
 
+        <?php endif;?>
+                            
                         <!-- My Trips Tab -->
                         <div class="tab-pane fade" id="trips">
                             <div class="d-flex justify-content-between align-items-center mb-4">

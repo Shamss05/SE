@@ -58,7 +58,7 @@ if(isset($_POST['host_submit'])){
   $user->password=$hasedpassword;
   $user->Country=$country;
   $user->role=1;
-  $user->image="...";
+  $user->image="user.png";
   $user->preferences="Default";
   $user->skills="No skills for host";
   
