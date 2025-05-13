@@ -16,12 +16,12 @@ header("Location:./index.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WanderNest - Connect with Hosts Worldwide</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="../vendor/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="../vendor/css/bootstrap-icons.css" rel="stylesheet">
     <style>
         .hero-section {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/hero/hero-main.jpg');
             background-size: cover;
             background-position: center;
             height: 80vh;
@@ -81,7 +81,7 @@ header("Location:./index.php");
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div class="container">
             <a class="navbar-brand" href="/">
-                <i class="fas fa-globe-americas me-2"></i>WanderNest
+                <i class="bi bi-globe me-2"></i>WanderNest
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -111,15 +111,15 @@ header("Location:./index.php");
                 </ul>
                 <div class="d-flex">
                     <a href="favorites.html" class="btn btn-outline-primary me-2">
-                        <i class="fas fa-heart me-1"></i>Favorites
+                        <i class="bi bi-heart me-1"></i>Favorites
                     </a>
                     <?php if(isset($_SESSION['user'])):?>
                     <a href="<?=baseurl("Traveler/traveler-profile.php")?>" class="btn btn-outline-primary me-2">
-                        <i class="fas fa-user me-1"></i>Profile
+                        <i class="bi bi-person me-1"></i>Profile
                     </a>
                     <?php elseif(isset($_SESSION['host'])):?>
                     <a href="./Host/host-profile.html" class="btn btn-outline-primary me-2">
-                        <i class="fas fa-user me-1"></i>Profile
+                        <i class="bi bi-person me-1"></i>Profile
                     </a>
                     <?php endif;?>
                     <?php if(!isset($_SESSION['user'])&&!isset($_SESSION['host'])):?>
@@ -159,21 +159,21 @@ header("Location:./index.php");
             <div class="row">
                 <div class="col-md-4 text-center">
                     <div class="step-icon">
-                        <i class="fas fa-search"></i>
+                        <i class="bi bi-search"></i>
                     </div>
                     <h3>Find Your Host</h3>
                     <p>Browse through thousands of hosts offering unique experiences worldwide</p>
                 </div>
                 <div class="col-md-4 text-center">
                     <div class="step-icon">
-                        <i class="fas fa-handshake"></i>
+                        <i class="bi bi-hand-thumbs-up"></i>
                     </div>
                     <h3>Connect & Agree</h3>
                     <p>Message hosts, discuss expectations, and agree on the exchange</p>
                 </div>
                 <div class="col-md-4 text-center">
                     <div class="step-icon">
-                        <i class="fas fa-plane"></i>
+                        <i class="bi bi-airplane"></i>
                     </div>
                     <h3>Start Your Journey</h3>
                     <p>Travel to your destination and begin your cultural exchange</p>
@@ -190,7 +190,7 @@ header("Location:./index.php");
                 <div class="col-md-4">
                     <a href="hosts.html?location=bali" class="text-decoration-none">
                         <div class="featured-destination">
-                            <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" class="img-fluid" alt="Bali">
+                            <img src="../images/destinations/bali.jpg" class="img-fluid" alt="Bali">
                             <div class="destination-overlay">
                                 <h4 class="text-white">Bali, Indonesia</h4>
                                 <p class="text-white mb-0">
@@ -203,7 +203,7 @@ header("Location:./index.php");
                 <div class="col-md-4">
                     <a href="hosts.html?location=lisbon" class="text-decoration-none">
                         <div class="featured-destination">
-                            <img src="https://images.unsplash.com/photo-1518546305927-5a555bb7020d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" class="img-fluid" alt="Portugal">
+                            <img src="../images/destinations/lisbon.jpg" class="img-fluid" alt="Portugal">
                             <div class="destination-overlay">
                                 <h4 class="text-white">Lisbon, Portugal</h4>
                                 <p class="text-white mb-0">
@@ -216,7 +216,7 @@ header("Location:./index.php");
                 <div class="col-md-4">
                     <a href="hosts.html?location=chiang-mai" class="text-decoration-none">
                         <div class="featured-destination">
-                            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" class="img-fluid" alt="Thailand">
+                            <img src="../images/destinations/chiang-mai.jpg" class="img-fluid" alt="Thailand">
                             <div class="destination-overlay">
                                 <h4 class="text-white">Chiang Mai, Thailand</h4>
                                 <p class="text-white mb-0">
@@ -239,17 +239,17 @@ header("Location:./index.php");
                     <p class="lead mb-4">Connect with fellow travelers who share your interests and travel plans. Make your journey more memorable by sharing it with like-minded adventurers.</p>
                     <div class="d-flex gap-3 mb-4">
                         <div class="text-center">
-                            <i class="fas fa-users fa-2x text-primary mb-2"></i>
+                            <i class="bi bi-person text-primary mb-2" style="font-size: 2em;"></i>
                             <h5>Connect</h5>
                             <p class="text-muted">Find travel companions worldwide</p>
                         </div>
                         <div class="text-center">
-                            <i class="fas fa-calendar-alt fa-2x text-primary mb-2"></i>
+                            <i class="bi bi-calendar text-primary mb-2" style="font-size: 2em;"></i>
                             <h5>Plan</h5>
                             <p class="text-muted">Match travel dates and destinations</p>
                         </div>
                         <div class="text-center">
-                            <i class="fas fa-share-alt fa-2x text-primary mb-2"></i>
+                            <i class="bi bi-share text-primary mb-2" style="font-size: 2em;"></i>
                             <h5>Share</h5>
                             <p class="text-muted">Split costs and experiences</p>
                         </div>
@@ -258,12 +258,12 @@ header("Location:./index.php");
                 </div>
                 <div class="col-lg-6">
                     <div class="position-relative">
-                        <img src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" class="img-fluid rounded shadow-lg" alt="Travel Buddies">
+                        <img src="../images/destinations/travel-buddy.jpg" class="img-fluid rounded shadow-lg" alt="Travel Buddies">
                         <div class="position-absolute top-0 start-0 translate-middle p-3 bg-white rounded-circle shadow">
-                            <i class="fas fa-map-marker-alt text-primary fa-2x"></i>
+                            <i class="bi bi-map-fill text-primary" style="font-size: 2em;"></i>
                         </div>
                         <div class="position-absolute bottom-0 end-0 translate-middle p-3 bg-white rounded-circle shadow">
-                            <i class="fas fa-heart text-danger fa-2x"></i>
+                            <i class="bi bi-heart-fill text-danger" style="font-size: 2em;"></i>
                         </div>
                     </div>
                 </div>
@@ -281,7 +281,7 @@ header("Location:./index.php");
                         <div class="card-body">
                             <p class="card-text">"I spent 3 months in Spain helping with an organic farm. The experience was life-changing!"</p>
                             <div class="d-flex align-items-center">
-                                <img src="https://randomuser.me/api/portraits/women/32.jpg" class="rounded-circle me-3" width="50" alt="Sarah">
+                                <img src="../images/testimonials/sarah.jpg" class="rounded-circle me-3" width="50" alt="Sarah">
                                 <div>
                                     <h6 class="mb-0">Sarah M.</h6>
                                     <small class="text-muted">Traveler from Canada</small>
@@ -295,7 +295,7 @@ header("Location:./index.php");
                         <div class="card-body">
                             <p class="card-text">"Hosting travelers has brought so much joy and cultural exchange to our family."</p>
                             <div class="d-flex align-items-center">
-                                <img src="https://randomuser.me/api/portraits/men/45.jpg" class="rounded-circle me-3" width="50" alt="Carlos">
+                                <img src="../images/testimonials/carlos.jpg" class="rounded-circle me-3" width="50" alt="Carlos">
                                 <div>
                                     <h6 class="mb-0">Carlos R.</h6>
                                     <small class="text-muted">Host from Spain</small>
@@ -309,7 +309,7 @@ header("Location:./index.php");
                         <div class="card-body">
                             <p class="card-text">"The platform made it easy to find the perfect host for my teaching skills."</p>
                             <div class="d-flex align-items-center">
-                                <img src="https://randomuser.me/api/portraits/women/68.jpg" class="rounded-circle me-3" width="50" alt="Emma">
+                                <img src="../images/testimonials/emma.jpg" class="rounded-circle me-3" width="50" alt="Emma">
                                 <div>
                                     <h6 class="mb-0">Emma L.</h6>
                                     <small class="text-muted">Traveler from Australia</small>
@@ -353,9 +353,9 @@ header("Location:./index.php");
                 <div class="col-md-4">
                     <h5>Follow Us</h5>
                     <div class="d-flex gap-3">
-                        <a href="#" class="text-white"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-camera"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-bullseye"></i></a>
                     </div>
                 </div>
             </div>
@@ -363,7 +363,7 @@ header("Location:./index.php");
     </footer>
 
     <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../vendor/js/bootstrap.bundle.min.js"></script>
     <script>
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -388,7 +388,7 @@ header("Location:./index.php");
                 document.getElementById('loginBtn').innerHTML = `
                     <div class="dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                            <i class="fas fa-user-circle me-1"></i>My Account
+                            <i class="bi bi-person-circle me-1"></i>My Account
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="profile.html">Profile</a></li>
