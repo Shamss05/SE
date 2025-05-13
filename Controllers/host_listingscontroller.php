@@ -83,6 +83,15 @@ public function saveavalability(availability $avaliable){
   }
 }
 
+public function get_Data (){
+  $this->db=new DBcontroller;
+  $this->db->openconnection();
+
+  $query='SELECT * FROM `host_listings` WHERE STATUS = "Approved"';
+  $result=$this->db->fetch($query);
+  return $result;
+}
+
 
 }
 

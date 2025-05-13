@@ -92,7 +92,7 @@ header("Location:./index.php");
                         <a class="nav-link active" href="<?=baseurl()?>">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="hosts.html">Find Hosts</a>
+                        <a class="nav-link" href="<?=baseurl("Traveler/hosts.php")?>">Find Hosts</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="how-it-works.html">How It Works</a>

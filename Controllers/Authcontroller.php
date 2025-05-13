@@ -120,11 +120,11 @@ $this->db=new DBcontroller;
 
 
 public function auth($role1=null,$role2=null){
-if((isset($_SESSION['host'])&&$_SESSION['host']['role']==$role1)|| (isset($_SESSION['user'])&&$_SESSION['user']['role']==$role2)){
+if((isset($_SESSION['host']) && $_SESSION['host']['role']==$role1)|| (isset($_SESSION['user'])&&$_SESSION['user']['role']==$role2)){
 
 }
 else{
-header("Location:").baseurl("error403.php");
+header("Location: " . baseurl("auth/login.php"));
 }
 }
 

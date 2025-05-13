@@ -1,3 +1,11 @@
+<?php
+require_once '../../vendor/functions.php';
+require_once '../../Controllers/host_listingscontroller.php';
+$hostlistings=new host_listingscontroller;
+$result=$hostlistings->get_Data();
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -137,13 +145,10 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
+                        <a class="nav-link" href="<?=baseurl()?>">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="hosts.html">Find Hosts</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="opportunities.html">Opportunities</a>
+                        <a class="nav-link active" href="<?=baseurl("Traveler/hosts.php")?>">Find Hosts</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="how-it-works.html">How It Works</a>
@@ -261,6 +266,7 @@
             <div class="list-view">
                 <div class="row">
                     <!-- Host Card 1 -->
+                     <?php foreach($result as $hostlisting):?>
                     <div class="col-md-6 col-lg-4">
                         <div class="card h-100">
                             <div class="position-relative">
@@ -315,6 +321,7 @@
                             </div>
                         </div>
                     </div>
+                    <?php endforeach;?>
 
                     <!-- Host Card 2 -->
                     <div class="col-md-6 col-lg-4">
